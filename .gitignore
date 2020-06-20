@@ -36,3 +36,6 @@ buildNumber.properties
 .mvn/wrapper/maven-wrapper.jar
 
 .vscode/
+.graphite-storage/
+.grafana-storage/
+.settings/

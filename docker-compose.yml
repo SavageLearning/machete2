@@ -16,3 +16,21 @@ services:
       - '5432:5432'
     environment:
       - POSTGRES_PASSWORD=postgres
+    links:
+      - grafana
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+  graphite:
+    image: graphiteapp/graphite-statsd
+    volumes:
+      # Persistence for metrics data (Whisper database files):
+      - './.graphite-storage:/opt/graphite/storage/whisper'
+  # Web interface for turning Graphite metrics into charts:
+  grafana:
+    image: grafana/grafana
+    links:
+      - graphite
+    ports:
+      - '127.0.0.1:3000:3000' # Grafana web interface (local only to prevent eavesdropping)
+    # volumes:
+    #   - './.grafana-storage:/var/lib/grafana'
