@@ -1835,48 +1835,48 @@ databaseChangeLog:
               name: transportProviderID
           indexName: IX_transportProviderID
           tableName: TransportProviderAvailabilities
-  - changeSet:
-      id: 1590217406948-33
-      author: jcii (generated)
-      changes:
-      - createView:
-          fullDefinition: false
-          selectQuery: |-
-            SELECT COUNT(ActivitySignins.ID) AS ActivitySigninCount, MONTH(dateforsignin) AS MonthOfSignin, YEAR(dateforsignin) AS YearOfSignin
-            FROM ActivitySignins
-            GROUP BY YEAR(dateforsignin), MONTH(dateforsignin);
-          viewName: ActivitySigninsCountByMonth
-  - changeSet:
-      id: 1590217406948-34
-      author: jcii (generated)
-      changes:
-      - createView:
-          fullDefinition: false
-          selectQuery: "select wid,\n\t   groupingint,\n\t   duration minutes, \n\t\
-            \   testname as Grouping, \n\t   repname.datefrom \nfrom \n(\n\tSELECT WID,\
-            \ \n\t\t\tSUM(duration) AS duration,\n\t\t\tclassdate, \n\t\t\t(\t\n\t\t\
-            \t\tselect count(ww.id) colgroup\n\t\t\t\tfrom workers ww\n\t\t\t\tjoin\
-            \ dbo.events ee on (ww.id = ee.personID)\n\t\t\t\tjoin lookups ll on (ee.eventtype\
-            \ = ll.id)\n\t\t\t\twhere ll.subcategory = 'test' and\n\t\t\t\t\t  ww.id\
-            \ = WID and\n\t\t\t\t\t  ee.dateFrom < classdate\t\t\n\t\t\t) as groupingINT\n\
-            \tFROM (SELECT w.ID WID, \n\t\t\t\t a.id aid, \n\t\t\t\t asi.id asiid,\n\
-            \t\t\t\t a.dateStart classdate,\n\t\t\t\t /** Use Activity type to get English\
-            \ Lookup name **/\n\t\t\t\t (SELECT text_EN FROM Lookups AS Lookups_1 WHERE\
-            \ (ID = a.type)) AS classtype,\n\t\t\t\t /** calculate the DURATION **/\
-            \ \n\t\t\t\t (DATEPART(hour, a.dateEnd) * 60 + DATEPART(minute, a.dateEnd))\
-            \ - \n\t\t\t\t\t\t\t(DATEPART(hour, a.dateStart) * 60 + DATEPART(minute,\
-            \ a.dateStart)) AS duration\n\t\t   FROM Workers AS w INNER JOIN /** **/\n\
-            \t\t\t    ActivitySignins AS asi ON w.ID = asi.personID INNER JOIN\n\t\t\
-            \t    Activities AS a ON a.ID = asi.ActivityID \n\t\t   ) AS r\n\tGROUP\
-            \ BY WID, classdate, classtype, aid, asiid\n) rr\nleft join \n(\n\tselect\
-            \ row_number() over (partition by w.id order by e.datefrom) row, \n\t\t\t\
-            w.id wwid, \n\t\t\t(select text_EN from lookups lll where lll.id = e.eventtype)\
-            \ testname, \n\t\t\te.dateFrom\n\tfrom workers w \n\tjoin dbo.events e on\
-            \ (w.id = e.personID)\n\tjoin lookups l on (e.eventtype = l.id)\n\twhere\
-            \ l.subcategory = 'test'\n\tunion all\n\t(\n\t\tselect 0 as row, id as id,\
-            \ 'initiation' as testname, dateofbirth as datefrom\n\t\tfrom workers \n\
-            \t)\n) as repname on (rr.groupingINT = repname.row and rr.wid = repname.wwid)"
-          viewName: ClassHoursGroupedByTest
+#   - changeSet:
+#       id: 1590217406948-33
+#       author: jcii (generated)
+#       changes:
+#       - createView:
+#           fullDefinition: false
+#           selectQuery: |-
+#             SELECT COUNT(ActivitySignins.ID) AS ActivitySigninCount, MONTH(dateforsignin) AS MonthOfSignin, YEAR(dateforsignin) AS YearOfSignin
+#             FROM public."ActivitySignins" 
+#             GROUP BY YEAR(dateforsignin), MONTH(dateforsignin);
+#           viewName: ActivitySigninsCountByMonth
+#   - changeSet:
+#       id: 1590217406948-34
+#       author: jcii (generated)
+#       changes:
+#       - createView:
+#           fullDefinition: false
+#           selectQuery: "select wid,\n\t   groupingint,\n\t   duration minutes, \n\t\
+#             \   testname as Grouping, \n\t   repname.datefrom \nfrom \n(\n\tSELECT WID,\
+#             \ \n\t\t\tSUM(duration) AS duration,\n\t\t\tclassdate, \n\t\t\t(\t\n\t\t\
+#             \t\tselect count(ww.id) colgroup\n\t\t\t\tfrom workers ww\n\t\t\t\tjoin\
+#             \ dbo.events ee on (ww.id = ee.personID)\n\t\t\t\tjoin lookups ll on (ee.eventtype\
+#             \ = ll.id)\n\t\t\t\twhere ll.subcategory = 'test' and\n\t\t\t\t\t  ww.id\
+#             \ = WID and\n\t\t\t\t\t  ee.dateFrom < classdate\t\t\n\t\t\t) as groupingINT\n\
+#             \tFROM (SELECT w.ID WID, \n\t\t\t\t a.id aid, \n\t\t\t\t asi.id asiid,\n\
+#             \t\t\t\t a.dateStart classdate,\n\t\t\t\t /** Use Activity type to get English\
+#             \ Lookup name **/\n\t\t\t\t (SELECT text_EN FROM Lookups AS Lookups_1 WHERE\
+#             \ (ID = a.type)) AS classtype,\n\t\t\t\t /** calculate the DURATION **/\
+#             \ \n\t\t\t\t (DATEPART(hour, a.dateEnd) * 60 + DATEPART(minute, a.dateEnd))\
+#             \ - \n\t\t\t\t\t\t\t(DATEPART(hour, a.dateStart) * 60 + DATEPART(minute,\
+#             \ a.dateStart)) AS duration\n\t\t   FROM Workers AS w INNER JOIN /** **/\n\
+#             \t\t\t    ActivitySignins AS asi ON w.ID = asi.personID INNER JOIN\n\t\t\
+#             \t    Activities AS a ON a.ID = asi.ActivityID \n\t\t   ) AS r\n\tGROUP\
+#             \ BY WID, classdate, classtype, aid, asiid\n) rr\nleft join \n(\n\tselect\
+#             \ row_number() over (partition by w.id order by e.datefrom) row, \n\t\t\t\
+#             w.id wwid, \n\t\t\t(select text_EN from lookups lll where lll.id = e.eventtype)\
+#             \ testname, \n\t\t\te.dateFrom\n\tfrom workers w \n\tjoin dbo.events e on\
+#             \ (w.id = e.personID)\n\tjoin lookups l on (e.eventtype = l.id)\n\twhere\
+#             \ l.subcategory = 'test'\n\tunion all\n\t(\n\t\tselect 0 as row, id as id,\
+#             \ 'initiation' as testname, dateofbirth as datefrom\n\t\tfrom workers \n\
+#             \t)\n) as repname on (rr.groupingINT = repname.row and rr.wid = repname.wwid)"
+#           viewName: ClassHoursGroupedByTest
   - changeSet:
       id: 1590217406948-35
       author: jcii (generated)
@@ -1917,28 +1917,28 @@ databaseChangeLog:
               name: dwccardnum
           indexName: nci_wi_WorkerSignins_920345646A83399347A7
           tableName: WorkerSignins
-  - changeSet:
-      id: 1590217406948-39
-      author: jcii (generated)
-      changes:
-      - createView:
-          fullDefinition: false
-          selectQuery: |-
-            SELECT COUNT(WorkerSignins.ID) AS WorkerSigninCount, MONTH(dateforsignin) AS MonthOfSignin, YEAR(dateforsignin) AS YearOfSignin
-            FROM WorkerSignins
-            GROUP BY YEAR(dateforsignin), MONTH(dateforsignin);
-          viewName: WorkerSigninsCountByMonth
-  - changeSet:
-      id: 1590217406948-40
-      author: jcii (generated)
-      changes:
-      - createView:
-          fullDefinition: false
-          selectQuery: |-
-            SELECT COUNT(Persons.ID) AS MemberCount, MONTH(datecreated) AS MonthOfMembership, YEAR(datecreated) AS YearOfMembership
-            FROM Persons
-            GROUP BY YEAR(datecreated), MONTH(datecreated);
-          viewName: MemberCountByMonth
+#   - changeSet:
+#       id: 1590217406948-39
+#       author: jcii (generated)
+#       changes:
+#       - createView:
+#           fullDefinition: false
+#           selectQuery: |-
+#             SELECT COUNT(WorkerSignins.ID) AS WorkerSigninCount, MONTH(dateforsignin) AS MonthOfSignin, YEAR(dateforsignin) AS YearOfSignin
+#             FROM WorkerSignins
+#             GROUP BY YEAR(dateforsignin), MONTH(dateforsignin);
+#           viewName: WorkerSigninsCountByMonth
+#   - changeSet:
+#       id: 1590217406948-40
+#       author: jcii (generated)
+#       changes:
+#       - createView:
+#           fullDefinition: false
+#           selectQuery: |-
+#             SELECT COUNT(Persons.ID) AS MemberCount, MONTH(datecreated) AS MonthOfMembership, YEAR(datecreated) AS YearOfMembership
+#             FROM Persons
+#             GROUP BY YEAR(datecreated), MONTH(datecreated);
+#           viewName: MemberCountByMonth
   - changeSet:
       id: 1590217406948-41
       author: jcii (generated)
@@ -1966,33 +1966,33 @@ databaseChangeLog:
               name: workerAssignedID
           indexName: nci_wi_WorkAssignments_5B642451-D8CD-4C46-AECF-E3EF196FD1B1
           tableName: WorkAssignments
-  - changeSet:
-      id: 1590217406948-44
-      author: jcii (generated)
-      changes:
-      - createView:
-          fullDefinition: false
-          selectQuery: |-
-            select [date],[weekday], [PendingWO],[PendingWA],[ActiveWO],[ActiveWA],[CompletedWO],[CompletedWA],[CancelledWO],[CancelledWA],[ExpiredWO],[ExpiredWA]
-            from
-            (
-                select CONVERT(varchar, timestampofWork, 23) as [date], DATENAME(dw, timestampofWork) as [weekday], CONCAT([statusEN], 'WO') [status], count(*) as [count]
-                from dbo.workorders as wo
-                where DATEDIFF(dd, timestampofWork, CURRENT_TIMESTAMP) < 180
-                group by CONVERT(varchar, timestampofWork, 23),  DATENAME(dw, timestampofWork), CONCAT([statusEN], 'WO')
-                union
-                select CONVERT(varchar, timestampofWork, 23) as [date], DATENAME(dw, timestampofWork) as [weekday], CONCAT([statusEN], 'WA') status, count(*) as [count]
-                from dbo.workorders as wo
-                join dbo.WorkAssignments as wa on wo.id = wa.workOrderID
-                where DATEDIFF(dd, timestampofWork, CURRENT_TIMESTAMP) < 180
-                group by CONVERT(varchar, timestampofWork, 23),  DATENAME(dw, timestampofWork), CONCAT([statusEN], 'WA')
-            ) as source
-            PIVOT
-            (
-                sum([count])
-                for [status] in ([PendingWO],[PendingWA],[ActiveWO],[ActiveWA],[CompletedWO],[CompletedWA],[CancelledWO],[CancelledWA],[ExpiredWO],[ExpiredWA])
-            ) as WOWASummary
-          viewName: View_WOWASummary
+#   - changeSet:
+#       id: 1590217406948-44
+#       author: jcii (generated)
+#       changes:
+#       - createView:
+#           fullDefinition: false
+#           selectQuery: |-
+#             select [date],[weekday], [PendingWO],[PendingWA],[ActiveWO],[ActiveWA],[CompletedWO],[CompletedWA],[CancelledWO],[CancelledWA],[ExpiredWO],[ExpiredWA]
+#             from
+#             (
+#                 select CONVERT(varchar, timestampofWork, 23) as [date], DATENAME(dw, timestampofWork) as [weekday], CONCAT([statusEN], 'WO') [status], count(*) as [count]
+#                 from dbo.workorders as wo
+#                 where DATEDIFF(dd, timestampofWork, CURRENT_TIMESTAMP) < 180
+#                 group by CONVERT(varchar, timestampofWork, 23),  DATENAME(dw, timestampofWork), CONCAT([statusEN], 'WO')
+#                 union
+#                 select CONVERT(varchar, timestampofWork, 23) as [date], DATENAME(dw, timestampofWork) as [weekday], CONCAT([statusEN], 'WA') status, count(*) as [count]
+#                 from dbo.workorders as wo
+#                 join dbo.WorkAssignments as wa on wo.id = wa.workOrderID
+#                 where DATEDIFF(dd, timestampofWork, CURRENT_TIMESTAMP) < 180
+#                 group by CONVERT(varchar, timestampofWork, 23),  DATENAME(dw, timestampofWork), CONCAT([statusEN], 'WA')
+#             ) as source
+#             PIVOT
+#             (
+#                 sum([count])
+#                 for [status] in ([PendingWO],[PendingWA],[ActiveWO],[ActiveWA],[CompletedWO],[CompletedWA],[CancelledWO],[CancelledWA],[ExpiredWO],[ExpiredWA])
+#             ) as WOWASummary
+#           viewName: View_WOWASummary
   - changeSet:
       id: 1590217406948-45
       author: jcii (generated)
@@ -2008,17 +2008,17 @@ databaseChangeLog:
           referencedColumnNames: ID
           referencedTableName: WorkerSignins
           validate: true
-  - changeSet:
-      id: 1590217406948-46
-      author: jcii (generated)
-      changes:
-      - createView:
-          fullDefinition: false
-          selectQuery: "SELECT COUNT(WorkAssignments.ID) AS WorkAssignmentCount, MONTH(WorkOrders.timestampofWork)\
-            \ AS MonthOfWork, YEAR(WorkOrders.timestampofWork) AS YearOfWork\nFROM WorkAssignments,\
-            \ WorkOrders \nWHERE WorkAssignments.workOrderID  = WorkOrders.ID\nGROUP\
-            \ BY YEAR(WorkOrders.timestampofWork), MONTH(WorkOrders.timestampofWork);"
-          viewName: WorkAssignmentCountByMonth
+#   - changeSet:
+#       id: 1590217406948-46
+#       author: jcii (generated)
+#       changes:
+#       - createView:
+#           fullDefinition: false
+#           selectQuery: "SELECT COUNT(WorkAssignments.ID) AS WorkAssignmentCount, MONTH(WorkOrders.timestampofWork)\
+#             \ AS MonthOfWork, YEAR(WorkOrders.timestampofWork) AS YearOfWork\nFROM WorkAssignments,\
+#             \ WorkOrders \nWHERE WorkAssignments.workOrderID  = WorkOrders.ID\nGROUP\
+#             \ BY YEAR(WorkOrders.timestampofWork), MONTH(WorkOrders.timestampofWork);"
+#           viewName: WorkAssignmentCountByMonth
   - changeSet:
       id: 1590217406948-47
       author: jcii (generated)
@@ -2039,16 +2039,16 @@ databaseChangeLog:
               name: EmployerID
           indexName: nci_wi_WorkOrders_60EE0838F1E27A388627
           tableName: WorkOrders
-  - changeSet:
-      id: 1590217406948-49
-      author: jcii (generated)
-      changes:
-      - createView:
-          fullDefinition: false
-          selectQuery: "SELECT COUNT(WorkOrders.ID) AS WorkOrderCount, MONTH(WorkOrders.timestampofWork)\
-            \ AS MonthOfWork, YEAR(WorkOrders.timestampofWork) AS YearOfWork\nFROM WorkOrders\
-            \ \nGROUP BY YEAR(WorkOrders.timestampofWork), MONTH(WorkOrders.timestampofWork);"
-          viewName: zz_WorkOrderCountByMonth
+#   - changeSet:
+#       id: 1590217406948-49
+#       author: jcii (generated)
+#       changes:
+#       - createView:
+#           fullDefinition: false
+#           selectQuery: "SELECT COUNT(WorkOrders.ID) AS WorkOrderCount, MONTH(WorkOrders.timestampofWork)\
+#             \ AS MonthOfWork, YEAR(WorkOrders.timestampofWork) AS YearOfWork\nFROM WorkOrders\
+#             \ \nGROUP BY YEAR(WorkOrders.timestampofWork), MONTH(WorkOrders.timestampofWork);"
+#           viewName: zz_WorkOrderCountByMonth
   - changeSet:
       id: 1590217406948-51
       author: jcii (generated)
@@ -2127,39 +2127,39 @@ databaseChangeLog:
               name: ImageID
           indexName: IX_ImageID
           tableName: JoinEventImage
-  - changeSet:
-      id: 1590217406948-60
-      author: jcii (generated)
-      changes:
-      - createView:
-          fullDefinition: false
-          selectQuery: |-
-            SELECT COUNT(Activities.ID) AS ActivityCount, MONTH(datestart) AS MonthOfActivity, YEAR(datestart) AS YearOfActivity
-            FROM Activities
-            GROUP BY YEAR(datestart), MONTH(datestart);
-          viewName: ActivityCountByMonth
-  - changeSet:
-      id: 1590217406948-63
-      author: jcii (generated)
-      changes:
-      - createView:
-          fullDefinition: false
-          selectQuery: |-
-            SELECT COUNT(Employers.ID) AS EmployerCount, MONTH(datecreated) AS MonthOfStartEmployment, YEAR(datecreated) AS YearOfStartEmployment
-            FROM Employers
-            GROUP BY YEAR(datecreated), MONTH(datecreated);
-          viewName: EmployerCountByMonth
-  - changeSet:
-      id: 1590217406948-68
-      author: jcii (generated)
-      changes:
-      - createView:
-          fullDefinition: false
-          selectQuery: |-
-            SELECT COUNT(Workers.ID) AS MembershipCount, MONTH(dateOfMembership) AS MonthOfMembership, YEAR(dateOfMembership) AS YearOfMembership
-            FROM Workers
-            GROUP BY YEAR(dateOfMembership), MONTH(dateOfMembership);
-          viewName: MembershipCountByMonth
+#   - changeSet:
+#       id: 1590217406948-60
+#       author: jcii (generated)
+#       changes:
+#       - createView:
+#           fullDefinition: false
+#           selectQuery: |-
+#             SELECT COUNT(Activities.ID) AS ActivityCount, MONTH(datestart) AS MonthOfActivity, YEAR(datestart) AS YearOfActivity
+#             FROM Activities
+#             GROUP BY YEAR(datestart), MONTH(datestart);
+#           viewName: ActivityCountByMonth
+#   - changeSet:
+#       id: 1590217406948-63
+#       author: jcii (generated)
+#       changes:
+#       - createView:
+#           fullDefinition: false
+#           selectQuery: |-
+#             SELECT COUNT(Employers.ID) AS EmployerCount, MONTH(datecreated) AS MonthOfStartEmployment, YEAR(datecreated) AS YearOfStartEmployment
+#             FROM Employers
+#             GROUP BY YEAR(datecreated), MONTH(datecreated);
+#           viewName: EmployerCountByMonth
+#   - changeSet:
+#       id: 1590217406948-68
+#       author: jcii (generated)
+#       changes:
+#       - createView:
+#           fullDefinition: false
+#           selectQuery: |-
+#             SELECT COUNT(Workers.ID) AS MembershipCount, MONTH(dateOfMembership) AS MonthOfMembership, YEAR(dateOfMembership) AS YearOfMembership
+#             FROM Workers
+#             GROUP BY YEAR(dateOfMembership), MONTH(dateOfMembership);
+#           viewName: MembershipCountByMonth
   - changeSet:
       id: 1590217406948-69
       author: jcii (generated)
