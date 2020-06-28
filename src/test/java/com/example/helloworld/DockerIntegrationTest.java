@@ -10,7 +10,7 @@ import org.eclipse.jetty.http.HttpStatus;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.testcontainers.containers.MySQLContainer;
+import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
@@ -18,7 +18,6 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -31,20 +30,21 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ExtendWith(DropwizardExtensionsSupport.class)
 public class DockerIntegrationTest {
     @Container
-    private static final MySQLContainer<?> MY_SQL_CONTAINER = new MySQLContainer<>();
+    private static final PostgreSQLContainer<?> POSTGRE_SQL_CONTAINER = new PostgreSQLContainer<>();
 
     private static final String CONFIG_PATH = ResourceHelpers.resourceFilePath("test-docker-example.yml");
+    private static final String MIGRATE_PATH = ResourceHelpers.resourceFilePath("migrations.yml");
 
     public static final DropwizardAppExtension<HelloWorldConfiguration> APP = new DropwizardAppExtension<>(
             HelloWorldApplication.class, CONFIG_PATH,
-            ConfigOverride.config("database.url", MY_SQL_CONTAINER::getJdbcUrl),
-            ConfigOverride.config("database.user", MY_SQL_CONTAINER::getUsername),
-            ConfigOverride.config("database.password", MY_SQL_CONTAINER::getPassword)
+            ConfigOverride.config("database.url", POSTGRE_SQL_CONTAINER::getJdbcUrl),
+            ConfigOverride.config("database.user", POSTGRE_SQL_CONTAINER::getUsername),
+            ConfigOverride.config("database.password", POSTGRE_SQL_CONTAINER::getPassword)
             );
 
     @BeforeAll
     public static void migrateDb() throws Exception {
-        APP.getApplication().run("db", "migrate", CONFIG_PATH);
+        APP.getApplication().run("db", "migrate", CONFIG_PATH, "--migrations", MIGRATE_PATH);
     }
 
     @Test

@@ -9,7 +9,7 @@ import org.hibernate.exception.ConstraintViolationException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.testcontainers.containers.MySQLContainer;
+import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
@@ -23,7 +23,7 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 @ExtendWith(DropwizardExtensionsSupport.class)
 public class PersonDAOIntegrationTest {
     @Container
-    private static final MySQLContainer<?> MY_SQL_CONTAINER = new MySQLContainer<>();
+    private static final PostgreSQLContainer<?> MY_SQL_CONTAINER = new PostgreSQLContainer<>();
 
     public DAOTestExtension daoTestRule = DAOTestExtension.newBuilder()
             .customizeConfiguration(c -> c.setProperty(AvailableSettings.DIALECT, MySQL57Dialect.class.getName()))

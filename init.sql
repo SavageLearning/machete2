@@ -1,1 +1,1 @@
-CREATE DATABASE machete;
+CREATE DATABASE example;

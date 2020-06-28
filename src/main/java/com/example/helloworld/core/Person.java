@@ -26,13 +26,13 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "fullName", nullable = false)
+    @Column(name = "full_name", nullable = false)
     private String fullName;
 
-    @Column(name = "jobTitle", nullable = false)
+    @Column(name = "job_title", nullable = false)
     private String jobTitle;
 
-    @Column(name = "yearBorn")
+    @Column(name = "year_born")
     @Min(value = 0)
     @Max(value = 9999)
     private int yearBorn;
