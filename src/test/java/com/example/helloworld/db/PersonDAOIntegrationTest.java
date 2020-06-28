@@ -3,8 +3,6 @@ package com.example.helloworld.db;
 import com.example.helloworld.core.Person;
 import io.dropwizard.testing.junit5.DAOTestExtension;
 import io.dropwizard.testing.junit5.DropwizardExtensionsSupport;
-import org.hibernate.cfg.AvailableSettings;
-import org.hibernate.dialect.MySQL57Dialect;
 import org.hibernate.exception.ConstraintViolationException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,14 +21,13 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 @ExtendWith(DropwizardExtensionsSupport.class)
 public class PersonDAOIntegrationTest {
     @Container
-    private static final PostgreSQLContainer<?> MY_SQL_CONTAINER = new PostgreSQLContainer<>();
+    private static final PostgreSQLContainer<?> PSQL_CONTAINER = new PostgreSQLContainer<>();
 
     public DAOTestExtension daoTestRule = DAOTestExtension.newBuilder()
-            .customizeConfiguration(c -> c.setProperty(AvailableSettings.DIALECT, MySQL57Dialect.class.getName()))
-            .setDriver(MY_SQL_CONTAINER.getDriverClassName())
-            .setUrl(MY_SQL_CONTAINER.getJdbcUrl())
-            .setUsername(MY_SQL_CONTAINER.getUsername())
-            .setPassword(MY_SQL_CONTAINER.getPassword())
+            .setDriver(PSQL_CONTAINER.getDriverClassName())
+            .setUrl(PSQL_CONTAINER.getJdbcUrl())
+            .setUsername(PSQL_CONTAINER.getUsername())
+            .setPassword(PSQL_CONTAINER.getPassword())
             .addEntityClass(Person.class)
             .build();
 

@@ -3,6 +3,10 @@
 The Dropwizard example application was developed to, as its name implies, provide examples of some of the features
 present in Dropwizard.
 
+This version has the following customization:
+* Using Postgresql for automated integration tests and production operation
+* docker-compose that includes graphite and grafana
+
 # Overview
 
 Included with this application is an example of the optional DB API module. The examples provided illustrate a few of
@@ -17,7 +21,7 @@ This database example is comprised of the following classes:
 
 * All the JPQL statements for use in the `PersonDAO` are located in the `Person` class.
 
-* `migrations.xml` illustrates the usage of `dropwizard-migrations` which can create your database prior to running
+* `migrations.yml` illustrates the usage of `dropwizard-migrations` which can create your database prior to running
 your application for the first time.
 
 * The `PersonResource` and `PeopleResource` are the REST resource which use the PersonDAO to retrieve data from the database, note the injection

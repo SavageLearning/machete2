@@ -29,6 +29,7 @@ public class IntegrationTest {
 
     private static final String TMP_FILE = createTempFile();
     private static final String CONFIG_PATH = ResourceHelpers.resourceFilePath("test-example.yml");
+    private static final String MIGRATE_PATH = ResourceHelpers.resourceFilePath("migrations.yml");
 
     public static final DropwizardAppExtension<HelloWorldConfiguration> RULE = new DropwizardAppExtension<>(
             HelloWorldApplication.class, CONFIG_PATH,
@@ -36,7 +37,7 @@ public class IntegrationTest {
 
     @BeforeAll
     public static void migrateDb() throws Exception {
-        RULE.getApplication().run("db", "migrate", CONFIG_PATH);
+        RULE.getApplication().run("db", "migrate", CONFIG_PATH, "--migrations", MIGRATE_PATH);
     }
 
     private static String createTempFile() {
