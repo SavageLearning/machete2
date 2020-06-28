@@ -39,3 +39,4 @@ buildNumber.properties
 .graphite-storage/
 .grafana-storage/
 .settings/
+.idea/
