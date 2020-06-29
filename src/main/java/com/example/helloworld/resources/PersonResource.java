@@ -6,6 +6,7 @@ import com.example.helloworld.views.PersonView;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.params.LongParam;
 
+
 import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.Path;
@@ -24,6 +25,12 @@ public class PersonResource {
     }
 
     @GET
+    // @Operation(value = "Retrieve a user", notes = "Get a user by a user id (guid).")
+    // @ApiResponses(value = {
+    //         @ApiResponse(code = 200, message = "User found. Success."),
+    //         @ApiResponse(code = 404, message = "User not found."),
+    //         @ApiResponse(code = 500, message = "Internal Server Error."),
+    // })
     @UnitOfWork
     public Person getPerson(@PathParam("personId") LongParam personId) {
         return findSafely(personId.get());

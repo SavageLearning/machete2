@@ -29,6 +29,7 @@ import io.dropwizard.migrations.MigrationsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.dropwizard.views.ViewBundle;
+
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 
 import java.util.Map;
