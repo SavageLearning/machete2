@@ -59,6 +59,16 @@ public class IntegrationTest {
     }
 
     @Test
+    public void testSwagger() throws Exception {
+        final Optional<String> name = Optional.of("Dr. IntegrationTest");
+        var result = RULE.client().target("http://localhost:" + RULE.getLocalPort() + "/openapi.json")
+                .request()
+                .get()
+                .readEntity(String.class);
+        assertThat(result).contains("Hello World API");
+    }
+
+    @Test
     public void testPostPerson() throws Exception {
         final Person person = new Person("Dr. IntegrationTest", "Chief Wizard", 1525);
         final Person newPerson = postPerson(person);
