@@ -30,6 +30,7 @@ import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.dropwizard.views.ViewBundle;
 import io.swagger.v3.jaxrs2.integration.resources.OpenApiResource;
+import io.swagger.v3.oas.models.servers.Server;
 import io.swagger.v3.oas.integration.SwaggerConfiguration;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
@@ -37,6 +38,8 @@ import io.swagger.v3.oas.models.info.Info;
 
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -84,6 +87,7 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
                 return configuration.getViewRendererConfiguration();
             }
         });
+        bootstrap.addBundle(new AssetsBundle("/app", "/app", "index.html", "static"));
     }
 
     @Override
@@ -115,6 +119,10 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
                 .contact(new Contact().email("john@example.com"));
      
         oas.info(info);
+
+        List<Server> servers = new ArrayList<>();
+        servers.add(new Server().url("/api"));
+        oas.servers(servers);
         SwaggerConfiguration oasConfig = new SwaggerConfiguration()
                 .openAPI(oas)
                 .prettyPrint(true)

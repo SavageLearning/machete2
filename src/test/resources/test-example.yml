@@ -26,6 +26,3 @@ logging:
       archive: true
       archivedFileCount: 7
       maxFileSize: '1MiB'
-
-swagger:
-  resourcePackage: com.example.helloworld

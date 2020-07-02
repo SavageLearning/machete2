@@ -4,8 +4,10 @@ The Dropwizard example application was developed to, as its name implies, provid
 present in Dropwizard.
 
 This version has the following customization:
-* Using Postgresql for automated integration tests and production operation
+* dropwizard uses port 8088 so that graphite can have 8080
+* Postgresql for automated integration tests and production operation (instead of mysql)
 * docker-compose that includes graphite and grafana
+* Swagger to generate API docs
 
 # Overview
 
@@ -43,10 +45,16 @@ To test the example application run the following commands.
 
 * To hit the Hello World example (hit refresh a few times).
 
-	http://localhost:8080/hello-world
+	http://localhost:8088/hello-world
 
 * To post data into the application.
 
-	curl -H "Content-Type: application/json" -X POST -d '{"fullName":"Other Person","jobTitle":"Other Title"}' http://localhost:8080/people
+	curl -H "Content-Type: application/json" -X POST -d '{"fullName":"Other Person","jobTitle":"Other Title"}' http://localhost:8088/people
 	
-	open http://localhost:8080/people
+	open http://localhost:8088/people
+
+* to check graphite for data
+
+* To check grafana for data
+
+
