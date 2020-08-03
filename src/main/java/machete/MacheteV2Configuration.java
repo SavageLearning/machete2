@@ -3,6 +3,8 @@ package machete;
 import io.dropwizard.Configuration;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.*;
+// import javax.validation.constraints.NotEmpty;
+// this one is from the documentation...
 
 public class MacheteV2Configuration extends Configuration {
     @NotEmpty

@@ -3,6 +3,8 @@ package machete;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import machete.MacheteV2Resource;
+import machete.MacheteV2TemplateHealthCheck;
 
 public class MacheteV2Application extends Application<MacheteV2Configuration> {
 
@@ -24,6 +26,11 @@ public class MacheteV2Application extends Application<MacheteV2Configuration> {
     public void run(final MacheteV2Configuration configuration,
                     final Environment environment) {
         // TODO: implement application
-    }
+        final MacheteV2Resource resource = new MacheteV2Resource(
+            configuration.getTemplate(), 
+            configuration.getDefaultName()
+        );
+        environment.jersey().register(resource);
 
+    }   
 }
