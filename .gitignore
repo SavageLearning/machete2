@@ -40,7 +40,8 @@ buildNumber.properties
 .grafana-storage/
 .settings/
 .idea/
-.classpath/
-.project/
+.classpath
+.project
 bin/
 
+.DS_Store
