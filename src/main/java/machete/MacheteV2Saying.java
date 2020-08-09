@@ -1,17 +1,18 @@
-package com.example.helloworld.api;
+package machete;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.validator.constraints.Length;
 
-public class Saying {
+public class MacheteV2Saying {
     private long id;
 
     private String content;
 
-    public Saying() {
+    public MacheteV2Saying() {
         // Jackson deserialization
     }
 
-    public Saying(long id, String content) {
+    public MacheteV2Saying(long id, String content) {
         this.id = id;
         this.content = content;
     }
@@ -24,10 +25,5 @@ public class Saying {
     @JsonProperty
     public String getContent() {
         return content;
-    }
-
-    @Override
-    public String toString() {
-        return "Saying{" + "id=" + id + ", content='" + content + '\'' + '}';
     }
 }
