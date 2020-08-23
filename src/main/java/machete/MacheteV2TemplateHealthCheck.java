@@ -25,13 +25,8 @@ public class MacheteV2TemplateHealthCheck extends HealthCheck {
     // @Override
     public void run(MacheteV2Configuration configuration,
                     Environment environment) {
-        final MacheteV2Resource resource = new MacheteV2Resource(
-            configuration.getTemplate(),
-            configuration.getDefaultName()
-        );
         final MacheteV2TemplateHealthCheck healthCheck =
             new MacheteV2TemplateHealthCheck(configuration.getTemplate());
         environment.healthChecks().register("template", healthCheck);
-        environment.jersey().register(resource);
     }
 }
