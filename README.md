@@ -1,4 +1,5 @@
 # Introduction
+[ Forked from DropWizard template]
 
 The Dropwizard example application was developed to, as its name implies, provide examples of some of the features
 present in Dropwizard.
@@ -11,9 +12,13 @@ This version has the following customization:
 
 # Overview
 
-Included with this application is an example of the optional DB API module. The examples provided illustrate a few of
-the features available in [Hibernate](http://hibernate.org/), along with demonstrating how these are used from within
-Dropwizard.
+Included with this repository is:
+	- Hibernate + Postgres, includes integration testing against Postgres
+	- Grafana and Graphite containers for metrics in dev
+	- Swagger API
+## Hibernate ORM
+The examples provided illustrate a few of the features available in [Hibernate](http://hibernate.org/), 
+along with demonstrating how these are used from within Dropwizard.
 
 This database example is comprised of the following classes:
 
@@ -35,9 +40,8 @@ As with all the modules the db example is wired up in the `initialize` function 
 
 To test the example application run the following commands.
 
-* To setup the h2 database run.
-
-        java -jar target/dropwizard-example-$DW_VERSION.jar db migrate example.yml
+* To build the dev-environment with docker-compose:
+		docker-compose up
 
 * To run the server run.
 
@@ -53,8 +57,19 @@ To test the example application run the following commands.
 	
 	open http://localhost:8088/people
 
+# Operations
+
 * to check graphite for data
+
+	open http://localhost:8080/
 
 * To check grafana for data
 
+	open http://localhost:3000/
+	user: admin
+	pw: admin
+
+* To see Swagger spec
+
+    open http://localhost:8088/openapi.json
 

@@ -1,4 +1,8 @@
 
+# howto
+Any json file found under grafana/dashboards will be turned into a dashboard.
+The directory structure is turned into grafana folders.
+
 # Documentation links
 
 ## Container config
