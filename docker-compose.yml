@@ -1,36 +1,58 @@
 version: '3'
 
-services:
-  # server:
-  #   build:
-  #     context: .
-  #   image: registry.balcia.com/balcia_dev/java/rest-dropwizard
-  #   ports:
-  #     - '8080:8080'
-  #     - '8081:8081'
-  #     - '8443:8443'
+networks:
+  dropwizardExample:
+    driver: bridge
 
+services:
   db:
     image: postgres:9.6-alpine
     ports:
       - '5432:5432'
     environment:
       - POSTGRES_PASSWORD=postgres
-    links:
-      - grafana
+    networks:
+      dropwizardExample:
+        aliases:
+          - "db"
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
   graphite:
     image: graphiteapp/graphite-statsd
+
+    networks:
+      dropwizardExample:
+        aliases:
+          - "graphite"
+    # Uncomment for persistenting data          
     volumes:
       # Persistence for metrics data (Whisper database files):
       - './.graphite-storage:/opt/graphite/storage/whisper'
+    ports:
+      - '80:80'
+      - '127.0.0.1:2003:2003'
+      - '127.0.0.1:2004:2004'
+      - '127.0.0.1:2013:2013'
+      - '127.0.0.1:2014:2014'
+      - '127.0.0.1:2023:2023'
+      - '127.0.0.1:2024:2024'
+      - '8080:8080'
+      - '127.0.0.1:8125:8125'
+      - '127.0.0.1:8126:8126'
   # Web interface for turning Graphite metrics into charts:
   grafana:
     image: grafana/grafana
-    links:
-      - graphite
+    networks:
+      dropwizardExample:
+        aliases:
+          - "grafana"
+    depends_on:
+      - graphite      
     ports:
       - '127.0.0.1:3000:3000' # Grafana web interface (local only to prevent eavesdropping)
-    # volumes:
-    #   - './.grafana-storage:/var/lib/grafana'
+    volumes:
+      - './grafana/provisioning:/etc/grafana/provisioning'
+      - './grafana/dashboards:/etc/dashboards'
+    # Uncomment for persistenting data
+    #  - './.grafana-storage/data:/var/lib/grafana'
+    #  - './.grafana-storage/etc/grafana.ini:/etc/grafana/grafana.ini'

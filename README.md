@@ -1,46 +1,75 @@
-# MacheteV2
+# Introduction
+[ Forked from DropWizard template]
 
+The Dropwizard example application was developed to, as its name implies, provide examples of some of the features
+present in Dropwizard.
 
-### Prerequisites
-(On MacOS)
+This version has the following customization:
+* dropwizard uses port 8088 so that graphite can have 8080
+* Postgresql for automated integration tests and production operation (instead of mysql)
+* docker-compose that includes graphite and grafana
+* Swagger to generate API docs
 
-1. Install Java: https://www.java.com/en/download/mac_download.jsp
-1. Install JDK: https://www.oracle.com/java/technologies/javase-downloads.html
-1. Install Homebrew: https://brew.sh/
-1. Install Maven: `brew install maven` or https://maven.apache.org/download.cgi
+# Overview
 
-<hr />
+Included with this repository is:
+	- Hibernate + Postgres, includes integration testing against Postgres
+	- Grafana and Graphite containers for metrics in dev
+	- Swagger API
+## Hibernate ORM
+The examples provided illustrate a few of the features available in [Hibernate](http://hibernate.org/), 
+along with demonstrating how these are used from within Dropwizard.
 
-### How to start the application
+This database example is comprised of the following classes:
 
-Clone this repo:
-```
-git clone git@github.com:SavageLearning/machete2
-```
+* The `PersonDAO` illustrates using the Data Access Object pattern with assisting of Hibernate.
 
-Navigate to the directory:
-```
-cd machete2
-```
+* The `Person` illustrates mapping of Java classes to database tables with assisting of JPA annotations.
 
-Run a Maven install to build the application:
-```
-mvn clean install
-```
+* All the JPQL statements for use in the `PersonDAO` are located in the `Person` class.
 
-Start the application:
-```
-java -jar target/machete-1.0-SNAPSHOT.jar server machete.yml
-```
+* `migrations.yml` illustrates the usage of `dropwizard-migrations` which can create your database prior to running
+your application for the first time.
 
-To check that your application is running enter this URL in your browser: 
+* The `PersonResource` and `PeopleResource` are the REST resource which use the PersonDAO to retrieve data from the database, note the injection
+of the PersonDAO in their constructors.
 
-http://localhost:8080
+As with all the modules the db example is wired up in the `initialize` function of the `HelloWorldApplication`.
 
-<hr />
+# Running The Application
 
-### Health Check
+To test the example application run the following commands.
 
-To see your application's health enter the following URL in your browser: 
+* To build the dev-environment with docker-compose:
+		docker-compose up
 
-http://localhost:8081/healthcheck
+* To run the server run.
+
+        java -jar target/dropwizard-example-$DW_VERSION.jar server example.yml
+
+* To hit the Hello World example (hit refresh a few times).
+
+	http://localhost:8088/hello-world
+
+* To post data into the application.
+
+	curl -H "Content-Type: application/json" -X POST -d '{"fullName":"Other Person","jobTitle":"Other Title"}' http://localhost:8088/people
+	
+	open http://localhost:8088/people
+
+# Operations
+
+* to check graphite for data
+
+	open http://localhost:8080/
+
+* To check grafana for data
+
+	open http://localhost:3000/
+	user: admin
+	pw: admin
+
+* To see Swagger spec
+
+    open http://localhost:8088/openapi.json
+

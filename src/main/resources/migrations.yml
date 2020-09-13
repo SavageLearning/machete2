@@ -1,0 +1,26 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: jcii
+      changes:
+      - createTable:
+          columns:
+          - column:
+              autoIncrement: true
+              constraints:
+                nullable: false
+                primaryKey: true
+              name: id
+              type: bigint
+          - column:
+              constraints:
+                nullable: false
+              name: full_name
+              type: varchar(255)
+          - column:
+              name: job_title
+              type: varchar(255)
+          - column:
+                name: year_born
+                type: int
+          tableName: people
