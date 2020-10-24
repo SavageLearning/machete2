@@ -38,10 +38,58 @@ As with all the modules the db example is wired up in the `initialize` function 
 
 # Running The Application
 
-To test the example application run the following commands.
+## Install Dependencies
+* Java
 
-* To build the dev-environment with docker-compose:
+	Ubuntu Installation:
+
+		sudo apt-get install openjdk-11-jdk
+		export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+		export PATH=$PATH:$JAVA_HOME/bin
+
+* Docker & Docker-compose
+
+	Ubuntu Installation:
+
+		sudo apt-get remove docker docker-engine docker.io containerd runc
+		sudo apt-get update
+		sudo apt-get install \
+			apt-transport-https \
+			ca-certificates \
+			curl \
+			gnupg-agent \
+			software-properties-common
+		curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+		sudo add-apt-repository \
+			"deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+			$(lsb_release -cs) \
+			stable"
+		sudo apt-get update
+		sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose
+
+* Maven
+
+	Ubuntu Installation:
+
+		sudo apt install maven
+
+## Build
+* Build running environment
+
+	The integration tests need the real Postgres db, so get it running
+
 		docker-compose up
+
+* Build the app
+
+		mvn clean install -DskipTests
+
+* Run tests
+
+		mvn test
+
+
+## Run the app!
 
 * To run the server run.
 
