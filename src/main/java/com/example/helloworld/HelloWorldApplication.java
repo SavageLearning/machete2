@@ -73,7 +73,7 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
         );
 
         bootstrap.addCommand(new RenderCommand());
-        bootstrap.addBundle(new AssetsBundle());
+        // bootstrap.addBundle(new AssetsBundle());
         bootstrap.addBundle(new MigrationsBundle<HelloWorldConfiguration>() {
             @Override
             public DataSourceFactory getDataSourceFactory(HelloWorldConfiguration configuration) {
@@ -87,7 +87,8 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
                 return configuration.getViewRendererConfiguration();
             }
         });
-        bootstrap.addBundle(new AssetsBundle("/app", "/app", "index.html", "static"));
+        bootstrap.addBundle(new AssetsBundle("/swagger-ui", "/swagger", "index.html", "swagger"));
+
     }
 
     @Override
@@ -121,7 +122,7 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
         oas.info(info);
 
         List<Server> servers = new ArrayList<>();
-        servers.add(new Server().url("/api"));
+        servers.add(new Server().url("/"));
         oas.servers(servers);
         SwaggerConfiguration oasConfig = new SwaggerConfiguration()
                 .openAPI(oas)

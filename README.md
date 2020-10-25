@@ -105,6 +105,11 @@ As with all the modules the db example is wired up in the `initialize` function 
 	
 	open http://localhost:8088/people
 
+* To test the API with swagger
+
+	http://localhost:8088/swagger
+
+
 # Operations
 
 * to check graphite for data
