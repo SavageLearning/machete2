@@ -29,6 +29,7 @@ public class IntegrationTest {
 
     private static final String TMP_FILE = createTempFile();
     private static final String CONFIG_PATH = ResourceHelpers.resourceFilePath("test-example.yml");
+    private static final String MIGRATE_PATH = ResourceHelpers.resourceFilePath("migrations.yml");
 
     public static final DropwizardAppExtension<HelloWorldConfiguration> RULE = new DropwizardAppExtension<>(
             HelloWorldApplication.class, CONFIG_PATH,
@@ -36,7 +37,6 @@ public class IntegrationTest {
 
     @BeforeAll
     public static void migrateDb() throws Exception {
-        RULE.getApplication().run("db", "migrate", CONFIG_PATH);
     }
 
     private static String createTempFile() {
@@ -56,6 +56,16 @@ public class IntegrationTest {
                 .get(Saying.class);
         assertThat(saying.getContent()).isEqualTo(RULE.getConfiguration().buildTemplate().render(name));
     }
+
+    // @Test
+    // public void testSwagger() throws Exception {
+    //     final Optional<String> name = Optional.of("Dr. IntegrationTest");
+    //     final Saying result = RULE.client().target("http://localhost:" + RULE.getLocalPort() + "/openapi.json")
+    //             .request()
+    //             .get()
+    //             .readEntity(String.class);
+    //     assertThat(result).contains("Hello World API");
+    // }
 
     @Test
     public void testPostPerson() throws Exception {

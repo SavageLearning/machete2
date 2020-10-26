@@ -40,3 +40,8 @@ buildNumber.properties
 .grafana-storage/
 .settings/
 .idea/
+\.project
+
+\.classpath
+
+dropwizard-example\.iml
