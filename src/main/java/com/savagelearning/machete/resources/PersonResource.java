@@ -4,7 +4,7 @@ import com.savagelearning.machete.core.Person;
 import com.savagelearning.machete.db.PersonDAO;
 import com.savagelearning.machete.views.PersonView;
 import io.dropwizard.hibernate.UnitOfWork;
-import io.dropwizard.jersey.params.LongParam;
+import java.util.OptionalLong;
 
 
 import javax.ws.rs.GET;
@@ -32,24 +32,24 @@ public class PersonResource {
     //         @ApiResponse(code = 500, message = "Internal Server Error."),
     // })
     @UnitOfWork
-    public Person getPerson(@PathParam("personId") LongParam personId) {
-        return findSafely(personId.get());
+    public Person getPerson(@PathParam("personId") OptionalLong personId) {
+        return findSafely(personId.getAsLong());
     }
 
     @GET
     @Path("/view_freemarker")
     @UnitOfWork
     @Produces(MediaType.TEXT_HTML)
-    public PersonView getPersonViewFreemarker(@PathParam("personId") LongParam personId) {
-        return new PersonView(PersonView.Template.FREEMARKER, findSafely(personId.get()));
+    public PersonView getPersonViewFreemarker(@PathParam("personId") OptionalLong personId) {
+        return new PersonView(PersonView.Template.FREEMARKER, findSafely(personId.getAsLong()));
     }
 
     @GET
     @Path("/view_mustache")
     @UnitOfWork
     @Produces(MediaType.TEXT_HTML)
-    public PersonView getPersonViewMustache(@PathParam("personId") LongParam personId) {
-        return new PersonView(PersonView.Template.MUSTACHE, findSafely(personId.get()));
+    public PersonView getPersonViewMustache(@PathParam("personId") OptionalLong personId) {
+        return new PersonView(PersonView.Template.MUSTACHE, findSafely(personId.getAsLong()));
     }
 
     private Person findSafely(long personId) {
