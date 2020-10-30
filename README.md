@@ -101,7 +101,7 @@ As with all the modules the db example is wired up in the `initialize` function 
 
 * To post data into the application.
 
-	curl -H "Content-Type: application/json" -X POST -d '{"fullName":"Other Person","jobTitle":"Other Title"}' http://localhost:8088/people
+	c
 	
 	open http://localhost:8088/people
 

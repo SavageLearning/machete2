@@ -1,5 +1,5 @@
 resourcePackages:
-  - com.example.helloworld.resources
+  - com.savagelearning.machete.resources
   prettyPrint: true
   cacheTTL: 0
   openAPI:

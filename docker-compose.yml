@@ -1,7 +1,7 @@
 version: '3'
 
 networks:
-  dropwizardExample:
+  machete:
     driver: bridge
 
 services:
@@ -12,7 +12,7 @@ services:
     environment:
       - POSTGRES_PASSWORD=postgres
     networks:
-      dropwizardExample:
+      machete:
         aliases:
           - "db"
     volumes:
@@ -21,7 +21,7 @@ services:
     image: graphiteapp/graphite-statsd
 
     networks:
-      dropwizardExample:
+      machete:
         aliases:
           - "graphite"
     # Uncomment for persistenting data          
@@ -43,7 +43,7 @@ services:
   grafana:
     image: grafana/grafana
     networks:
-      dropwizardExample:
+      machete:
         aliases:
           - "grafana"
     depends_on:
