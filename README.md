@@ -91,9 +91,13 @@ As with all the modules the db example is wired up in the `initialize` function 
 
 ## Run the app!
 
+* To configure the DB
+
+		java -jar target/machete-1.0.0-SNAPSHOT.jar db migrate machete.yml --migrations src/main/resources/migrations.yml 
+
 * To run the server run.
 
-        java -jar target/dropwizard-example-$DW_VERSION.jar server example.yml
+        java -jar target/machete-1.0.0-SNAPSHOT server example.yml
 
 * To hit the Hello World example (hit refresh a few times).
 
@@ -101,7 +105,7 @@ As with all the modules the db example is wired up in the `initialize` function 
 
 * To post data into the application.
 
-	c
+	curl -H "Content-Type: application/json" -X POST -d '{"fullName":"Other Person","jobTitle":"Other Title"}' http://localhost:8088/people
 	
 	open http://localhost:8088/people
 
