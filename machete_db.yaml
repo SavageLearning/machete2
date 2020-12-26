@@ -6,24 +6,16 @@ databaseChangeLog:
     - createTable:
         columns:
         - column:
-            autoIncrement: true
             constraints:
               nullable: false
               primaryKey: true
-              primaryKeyName: PK_dbo.TransportProviderAvailabilities
-            name: ID
-            type: int
+            name: id
+            type: uuid
         - column:
             constraints:
               nullable: false
-            name: transportProviderID
-            type: int
-        - column:
-            name: key
-            type: varchar(50)
-        - column:
-            name: lookupKey
-            type: varchar(50)
+            name: transport_provider_id
+            type: uuid
         - column:
             constraints:
               nullable: false
@@ -37,20 +29,20 @@ databaseChangeLog:
         - column:
             constraints:
               nullable: false
-            name: datecreated
+            name: date_created
             type: datetime
         - column:
             constraints:
               nullable: false
-            name: dateupdated
+            name: date_updated
             type: datetime
         - column:
-            name: Createdby
+            name: created_by
             type: varchar(30)
         - column:
-            name: Updatedby
+            name: updated_by
             type: varchar(30)
-        tableName: TransportProviderAvailabilities
+        tableName: transport_provider_availabilities
 - changeSet:
     id: 1590217406948-3
     author: jcii (generated)
@@ -58,51 +50,49 @@ databaseChangeLog:
     - createTable:
         columns:
         - column:
-            autoIncrement: true
             constraints:
               nullable: false
               primaryKey: true
-              primaryKeyName: PK_ActivitySignins
-            name: ID
-            type: int
+            name: id
+            type: uuid
         - column:
             constraints:
               nullable: false
-            name: ActivityID
-            type: int
+            name: activity_id
+            type: uuid
         - column:
             constraints:
               nullable: false
-            name: dwccardnum
-            type: int
+            name: membership_number
+            type: varchar(50)
         - column:
-            name: memberStatus
-            type: int
+            name: membership_status
+            type: varchar(10)
         - column:
             constraints:
               nullable: false
-            name: dateforsignin
+            name: date_for_signin
             type: datetime
         - column:
             constraints:
               nullable: false
-            name: datecreated
+            name: date_created
             type: datetime
         - column:
             constraints:
               nullable: false
-            name: dateupdated
+            name: date_updated
             type: datetime
         - column:
-            name: Createdby
+            name: created_by
             type: varchar(30)
         - column:
-            name: Updatedby
+            name: updated_by
             type: varchar(30)
         - column:
             name: personID
-            type: int
-        tableName: ActivitySignins
+            type: uuid
+        tableName: activity_signins
 - changeSet:
     id: 1590217406948-5
     author: jcii (generated)
@@ -110,13 +100,11 @@ databaseChangeLog:
     - createTable:
         columns:
         - column:
-            autoIncrement: true
             constraints:
               nullable: false
               primaryKey: true
-              primaryKeyName: PK_dbo.ScheduleRules
-            name: ID
-            type: int
+            name: id
+            type: uuid
         - column:
             constraints:
               nullable: false
@@ -140,18 +128,18 @@ databaseChangeLog:
         - column:
             constraints:
               nullable: false
-            name: datecreated
+            name: date_created
             type: datetime
         - column:
             constraints:
               nullable: false
-            name: dateupdated
+            name: date_updated
             type: datetime
         - column:
-            name: Createdby
+            name: created_by
             type: varchar(30)
         - column:
-            name: Updatedby
+            name: updated_by
             type: varchar(30)
         tableName: ScheduleRules
 - changeSet:
@@ -161,18 +149,16 @@ databaseChangeLog:
     - createTable:
         columns:
         - column:
-            autoIncrement: true
             constraints:
               nullable: false
               primaryKey: true
-              primaryKeyName: PK_dbo.TransportCostRules
-            name: ID
-            type: int
+            name: id
+            type: uuid
         - column:
             constraints:
               nullable: false
             name: transportRuleID
-            type: int
+            type: uuid
         - column:
             constraints:
               nullable: false
@@ -191,18 +177,18 @@ databaseChangeLog:
         - column:
             constraints:
               nullable: false
-            name: datecreated
+            name: date_created
             type: datetime
         - column:
             constraints:
               nullable: false
-            name: dateupdated
+            name: date_updated
             type: datetime
         - column:
-            name: Createdby
+            name: created_by
             type: varchar(30)
         - column:
-            name: Updatedby
+            name: updated_by
             type: varchar(30)
         tableName: TransportCostRules
 - changeSet:
@@ -212,21 +198,19 @@ databaseChangeLog:
     - createTable:
         columns:
         - column:
-            autoIncrement: true
             constraints:
               nullable: false
               primaryKey: true
-              primaryKeyName: PK__WorkerSi__3214EC275CE53F05
-            name: ID
-            type: int
+            name: id
+            type: uuid
         - column:
             constraints:
               nullable: false
-            name: dwccardnum
+            name: membership_number
             type: int
         - column:
             name: WorkerID
-            type: int
+            type: uuid
         - column:
             name: WorkAssignmentID
             type: int
@@ -241,18 +225,18 @@ databaseChangeLog:
         - column:
             constraints:
               nullable: false
-            name: datecreated
+            name: date_created
             type: datetime
         - column:
             constraints:
               nullable: false
-            name: dateupdated
+            name: date_updated
             type: datetime
         - column:
-            name: Createdby
+            name: created_by
             type: varchar(30)
         - column:
-            name: Updatedby
+            name: updated_by
             type: varchar(30)
         - column:
             name: memberStatus
@@ -275,38 +259,36 @@ databaseChangeLog:
     - createTable:
         columns:
         - column:
-            autoIncrement: true
             constraints:
               nullable: false
               primaryKey: true
-              primaryKeyName: PK__WorkerRe__3214EC27776DAD9B
-            name: ID
-            type: int
+            name: id
+            type: uuid
         - column:
             constraints:
               nullable: false
             name: WorkOrderID
-            type: int
+            type: uuid
         - column:
             constraints:
               nullable: false
             name: WorkerID
-            type: int
+            type: uuid
         - column:
             constraints:
               nullable: false
-            name: datecreated
+            name: date_created
             type: datetime
         - column:
             constraints:
               nullable: false
-            name: dateupdated
+            name: date_updated
             type: datetime
         - column:
-            name: Createdby
+            name: created_by
             type: varchar(30)
         - column:
-            name: Updatedby
+            name: updated_by
             type: varchar(30)
         tableName: WorkerRequests
 - changeSet:
@@ -316,13 +298,11 @@ databaseChangeLog:
     - createTable:
         columns:
         - column:
-            autoIncrement: true
             constraints:
               nullable: false
               primaryKey: true
-              primaryKeyName: PK__Persons__3214EC275FDDAF4D
-            name: ID
-            type: int
+            name: id
+            type: uuid
         - column:
             constraints:
               nullable: false
@@ -373,18 +353,18 @@ databaseChangeLog:
         - column:
             constraints:
               nullable: false
-            name: datecreated
+            name: date_created
             type: datetime
         - column:
             constraints:
               nullable: false
-            name: dateupdated
+            name: date_updated
             type: datetime
         - column:
-            name: Createdby
+            name: created_by
             type: varchar(30)
         - column:
-            name: Updatedby
+            name: updated_by
             type: varchar(30)
         - column:
             name: nickname
@@ -409,18 +389,16 @@ databaseChangeLog:
     - createTable:
         columns:
         - column:
-            autoIncrement: true
             constraints:
               nullable: false
               primaryKey: true
-              primaryKeyName: PK__Events__3214EC276981ADA8
-            name: ID
-            type: int
+            name: id
+            type: uuid
         - column:
             constraints:
               nullable: false
             name: PersonID
-            type: int
+            type: uuid
         - column:
             constraints:
               nullable: false
@@ -440,24 +418,21 @@ databaseChangeLog:
         - column:
             constraints:
               nullable: false
-            name: datecreated
+            name: date_created
             type: datetime
         - column:
             constraints:
               nullable: false
-            name: dateupdated
+            name: date_updated
             type: datetime
         - column:
-            name: Createdby
+            name: created_by
             type: varchar(30)
         - column:
-            name: Updatedby
+            name: updated_by
             type: varchar(30)
         - column:
             name: eventTypeEN
-            type: varchar(50)
-        - column:
-            name: eventTypeES
             type: varchar(50)
         tableName: Events
 - changeSet:
@@ -467,13 +442,11 @@ databaseChangeLog:
     - createTable:
         columns:
         - column:
-            autoIncrement: true
             constraints:
               nullable: false
               primaryKey: true
-              primaryKeyName: PK_dbo.ReportDefinitions
-            name: ID
-            type: int
+            name: id
+            type: uuid
         - column:
             name: name
             type: varchar
@@ -504,18 +477,18 @@ databaseChangeLog:
         - column:
             constraints:
               nullable: false
-            name: datecreated
+            name: date_created
             type: datetime
         - column:
             constraints:
               nullable: false
-            name: dateupdated
+            name: date_updated
             type: datetime
         - column:
-            name: Createdby
+            name: created_by
             type: varchar(30)
         - column:
-            name: Updatedby
+            name: updated_by
             type: varchar(30)
         tableName: ReportDefinitions
 - changeSet:
@@ -525,24 +498,22 @@ databaseChangeLog:
     - createTable:
         columns:
         - column:
-            autoIncrement: true
             constraints:
               nullable: false
               primaryKey: true
-              primaryKeyName: PK__WorkAssi__3214EC2780748FBF
-            name: ID
-            type: int
+            name: id
+            type: uuid
         - column:
             name: workerAssignedID
-            type: int
+            type: uuid
         - column:
             constraints:
               nullable: false
             name: workOrderID
-            type: int
+            type: uuid
         - column:
             name: workerSigninID
-            type: int
+            type: uuid
         - column:
             constraints:
               nullable: false
@@ -613,18 +584,18 @@ databaseChangeLog:
         - column:
             constraints:
               nullable: false
-            name: datecreated
+            name: date_created
             type: datetime
         - column:
             constraints:
               nullable: false
-            name: dateupdated
+            name: date_updated
             type: datetime
         - column:
-            name: Createdby
+            name: created_by
             type: varchar(30)
         - column:
-            name: Updatedby
+            name: updated_by
             type: varchar(30)
         - column:
             constraints:
@@ -644,9 +615,6 @@ databaseChangeLog:
             type: bit
         - column:
             name: skillEN
-            type: varchar
-        - column:
-            name: skillES
             type: varchar
         - column:
             name: fullWAID
@@ -676,13 +644,11 @@ databaseChangeLog:
     - createTable:
         columns:
         - column:
-            autoIncrement: true
             constraints:
               nullable: false
               primaryKey: true
-              primaryKeyName: PK_dbo.Configs
-            name: ID
-            type: int
+            name: id
+            type: uuid
         - column:
             constraints:
               nullable: false
@@ -702,18 +668,18 @@ databaseChangeLog:
         - column:
             constraints:
               nullable: false
-            name: datecreated
+            name: date_created
             type: datetime
         - column:
             constraints:
               nullable: false
-            name: dateupdated
+            name: date_updated
             type: datetime
         - column:
-            name: Createdby
+            name: created_by
             type: varchar(30)
         - column:
-            name: Updatedby
+            name: updated_by
             type: varchar(30)
         - column:
             constraints:
@@ -730,13 +696,11 @@ databaseChangeLog:
     - createTable:
         columns:
         - column:
-            autoIncrement: true
             constraints:
               nullable: false
               primaryKey: true
-              primaryKeyName: PK_dbo.TransportRules
-            name: ID
-            type: int
+            name: id
+            type: uuid
         - column:
             name: key
             type: varchar(50)
@@ -752,18 +716,18 @@ databaseChangeLog:
         - column:
             constraints:
               nullable: false
-            name: datecreated
+            name: date_created
             type: datetime
         - column:
             constraints:
               nullable: false
-            name: dateupdated
+            name: date_updated
             type: datetime
         - column:
-            name: Createdby
+            name: created_by
             type: varchar(30)
         - column:
-            name: Updatedby
+            name: updated_by
             type: varchar(30)
         tableName: TransportRules
 - changeSet:
@@ -773,13 +737,11 @@ databaseChangeLog:
     - createTable:
         columns:
         - column:
-            autoIncrement: true
             constraints:
               nullable: false
               primaryKey: true
-              primaryKeyName: PK__Lookups__3214EC276073CE99
-            name: ID
-            type: int
+            name: id
+            type: uuid
         - column:
             constraints:
               nullable: false
@@ -789,11 +751,6 @@ databaseChangeLog:
             constraints:
               nullable: false
             name: text_EN
-            type: varchar(50)
-        - column:
-            constraints:
-              nullable: false
-            name: text_ES
             type: varchar(50)
         - column:
             constraints:
@@ -833,19 +790,19 @@ databaseChangeLog:
             constraints:
               nullable: false
             defaultValueConstraintName: DF__Lookups__datecre__06CD04F7
-            name: datecreated
+            name: date_created
             type: timestamp
         - column:
             constraints:
               nullable: false
             defaultValueConstraintName: DF__Lookups__dateupd__07C12930
-            name: dateupdated
+            name: date_updated
             type: timestamp
         - column:
-            name: Createdby
+            name: created_by
             type: varchar(30)
         - column:
-            name: Updatedby
+            name: updated_by
             type: varchar(30)
         - column:
             name: emailTemplate
@@ -877,21 +834,16 @@ databaseChangeLog:
     - createTable:
         columns:
         - column:
-            autoIncrement: true
             constraints:
               nullable: false
               primaryKey: true
-              primaryKeyName: PK_dbo.TransportProviders
-            name: ID
-            type: int
+            name: id
+            type: uuid
         - column:
             name: key
             type: varchar(50)
         - column:
             name: text_EN
-            type: varchar(50)
-        - column:
-            name: text_ES
             type: varchar(50)
         - column:
             constraints:
@@ -909,18 +861,18 @@ databaseChangeLog:
         - column:
             constraints:
               nullable: false
-            name: datecreated
+            name: date_created
             type: datetime
         - column:
             constraints:
               nullable: false
-            name: dateupdated
+            name: date_updated
             type: datetime
         - column:
-            name: Createdby
+            name: created_by
             type: varchar(30)
         - column:
-            name: Updatedby
+            name: updated_by
             type: varchar(30)
         tableName: TransportProviders
 - changeSet:
@@ -930,43 +882,52 @@ databaseChangeLog:
     - createTable:
         columns:
         - column:
-            autoIncrement: true
             constraints:
               nullable: false
               primaryKey: true
-              primaryKeyName: PK__WorkOrde__3214EC278C43EFBC
-            name: ID
+            name: id
+            type: uuid
+        - column:
+            constraints:
+              nullable: false
+            name: employer_id
+            type: int
+        - column:
+            name: work_order_number
             type: int
         - column:
             constraints:
               nullable: false
-            name: EmployerID
-            type: int
-        - column:
-            name: paperOrderNum
+            name: assignment_counter
             type: int
         - column:
             constraints:
               nullable: false
-            name: waPseudoIDCounter
-            type: int
-        - column:
-            constraints:
-              nullable: false
-            name: contactName
+            name: contact_name
             type: varchar(50)
         - column:
             constraints:
               nullable: false
-            name: status
+            name: status_id
             type: int
+        - column:
+            name: status_text
+            type: varchar(50)
+        - column:
+            constraints:
+                nullable: false
+            name: transport_method_id
+            type: int            
+        - column:
+            name: transport_method_text
+            type: varchar            
         - column:
             constraints:
               nullable: false
-            name: workSiteAddress1
+            name: work_site_address1
             type: varchar(50)
         - column:
-            name: workSiteAddress2
+            name: work_site_address2
             type: varchar(50)
         - column:
             constraints:
@@ -991,35 +952,12 @@ databaseChangeLog:
         - column:
             constraints:
               nullable: false
-            name: typeOfWorkID
-            type: int
-        - column:
-            constraints:
-              nullable: false
-            name: englishRequired
-            type: bit
-        - column:
-            name: englishRequiredNote
-            type: varchar(100)
-        - column:
-            constraints:
-              nullable: false
-            name: lunchSupplied
+            name: english_required
             type: bit
         - column:
             constraints:
               nullable: false
-            name: permanentPlacement
-            type: bit
-        - column:
-            constraints:
-              nullable: false
-            name: transportMethodID
-            type: int
-        - column:
-            constraints:
-              nullable: false
-            name: transportFee
+            name: transport_fee
             type: float(53)
         - column:
             constraints:
@@ -1032,35 +970,29 @@ databaseChangeLog:
         - column:
             constraints:
               nullable: false
-            name: dateTimeofWork
+            name: date_time_of_work
             type: datetime
         - column:
             constraints:
               nullable: false
-            name: timeFlexible
-            type: bit
-        - column:
-            constraints:
-              nullable: false
-            name: datecreated
+            name: date_created
             type: datetime
         - column:
             constraints:
               nullable: false
-            name: dateupdated
+            name: date_updated
             type: datetime
         - column:
-            name: Createdby
+            name: create_by
             type: varchar(30)
         - column:
-            name: Updatedby
+            name: updated_by
             type: varchar(30)
         - column:
             constraints:
               nullable: false
             defaultValueComputed: '''0'''
-            defaultValueConstraintName: DF__WorkOrder__onlin__10566F31
-            name: onlineSource
+            name: created_online
             type: bit
         - column:
             name: transportTransactType
@@ -1075,49 +1007,26 @@ databaseChangeLog:
             name: disclosureAgreement
             type: bit
         - column:
-            name: statusEN
-            type: varchar(50)
-        - column:
-            name: statusES
-            type: varchar(50)
-        - column:
-            name: transportMethodEN
-            type: varchar
-        - column:
-            name: transportMethodES
-            type: varchar
-        - column:
-            constraints:
-              nullable: false
-            defaultValueConstraintName: DF__WorkOrder__timeZ__0E6E26BF
-            defaultValueNumeric: 0.0
-            name: timeZoneOffset
+            name: paypal_fee
             type: float(53)
         - column:
-            name: ppFee
-            type: float(53)
-        - column:
-            name: ppResponse
+            name: paypal_response
             type: varchar
         - column:
-            name: ppPaymentToken
+            name: paypal_payment_token
             type: varchar(25)
         - column:
-            name: ppPaymentID
+            name: paypal_payment_id
             type: varchar(50)
         - column:
-            name: ppPayerID
+            name: paypal_payer_id
             type: varchar(25)
         - column:
-            name: ppState
+            name: paypal_state
             type: varchar(20)
         - column:
-            constraints:
-              nullable: false
-            defaultValueConstraintName: DF__WorkOrder__trans__0F624AF8
-            defaultValueNumeric: 0
-            name: transportProviderID
-            type: int
+            name: transport_provider_id
+            type: uuid
         tableName: WorkOrders
 - changeSet:
     id: 1590217406948-20
@@ -1129,32 +1038,32 @@ databaseChangeLog:
             constraints:
               nullable: false
             name: WorkOrder_ID
-            type: int
+            type: uuid
         - column:
             constraints:
               nullable: false
             name: Email_ID
-            type: int
+            type: uuid
         - column:
             constraints:
               nullable: false
-            name: ID
-            type: int
+            name: id
+            type: uuid
         - column:
             constraints:
               nullable: false
-            name: datecreated
+            name: date_created
             type: datetime2
         - column:
             constraints:
               nullable: false
-            name: dateupdated
+            name: date_updated
             type: datetime2
         - column:
-            name: Createdby
+            name: created_by
             type: varchar(30)
         - column:
-            name: Updatedby
+            name: updated_by
             type: varchar(30)
         tableName: EmailWorkOrder
 - changeSet:
@@ -1164,13 +1073,11 @@ databaseChangeLog:
     - createTable:
         columns:
         - column:
-            autoIncrement: true
             constraints:
               nullable: false
               primaryKey: true
-              primaryKeyName: PK_dbo.Emails
-            name: ID
-            type: int
+            name: id
+            type: uuid
         - column:
             name: emailFrom
             type: varchar(50)
@@ -1216,18 +1123,18 @@ databaseChangeLog:
         - column:
             constraints:
               nullable: false
-            name: datecreated
+            name: date_created
             type: datetime
         - column:
             constraints:
               nullable: false
-            name: dateupdated
+            name: date_updated
             type: datetime
         - column:
-            name: Createdby
+            name: created_by
             type: varchar(30)
         - column:
-            name: Updatedby
+            name: updated_by
             type: varchar(30)
         tableName: Emails
 - changeSet:
@@ -1237,39 +1144,37 @@ databaseChangeLog:
     - createTable:
         columns:
         - column:
-            autoIncrement: true
             constraints:
               nullable: false
               primaryKey: true
-              primaryKeyName: PK_JoinEventImage
-            name: ID
-            type: int
+            name: id
+            type: uuid
         - column:
             constraints:
               nullable: false
-            name: datecreated
+            name: date_created
             type: datetime
         - column:
             constraints:
               nullable: false
-            name: dateupdated
+            name: date_updated
             type: datetime
         - column:
-            name: Createdby
+            name: created_by
             type: varchar(30)
         - column:
-            name: Updatedby
+            name: updated_by
             type: varchar(30)
         - column:
             constraints:
               nullable: false
             name: EventID
-            type: int
+            type: uuid
         - column:
             constraints:
               nullable: false
             name: ImageID
-            type: int
+            type: uuid
         tableName: JoinEventImage
 - changeSet:
     id: 1590217406948-24
@@ -1278,13 +1183,11 @@ databaseChangeLog:
     - createTable:
         columns:
         - column:
-            autoIncrement: true
             constraints:
               nullable: false
               primaryKey: true
-              primaryKeyName: PK_Activities
-            name: ID
-            type: int
+            name: id
+            type: uuid
         - column:
             constraints:
               nullable: false
@@ -1316,18 +1219,18 @@ databaseChangeLog:
         - column:
             constraints:
               nullable: false
-            name: datecreated
+            name: date_created
             type: datetime
         - column:
             constraints:
               nullable: false
-            name: dateupdated
+            name: date_updated
             type: datetime
         - column:
-            name: Createdby
+            name: created_by
             type: varchar(30)
         - column:
-            name: Updatedby
+            name: updated_by
             type: varchar(30)
         - column:
             constraints:
@@ -1363,12 +1266,10 @@ databaseChangeLog:
     - createTable:
         columns:
         - column:
-            autoIncrement: true
             constraints:
               nullable: false
               primaryKey: true
-              primaryKeyName: PK__Employer__3214EC2794CD86BE
-            name: ID
+            name: id
             type: int
         - column:
             constraints:
@@ -1384,20 +1285,20 @@ databaseChangeLog:
             constraints:
               nullable: false
             name: name
-            type: varchar(50)
+            type: varchar(100)
         - column:
             constraints:
               nullable: false
-            name: address1
-            type: varchar(50)
+            name: address_line_1
+            type: varchar(100)
         - column:
-            name: address2
-            type: varchar(50)
+            name: address_line_2
+            type: varchar(100)
         - column:
             constraints:
               nullable: false
             name: city
-            type: varchar(50)
+            type: varchar(100)
         - column:
             constraints:
               nullable: false
@@ -1406,10 +1307,10 @@ databaseChangeLog:
         - column:
             constraints:
               nullable: false
-            name: phone
+            name: primary_phone
             type: varchar(12)
         - column:
-            name: cellphone
+            name: secondary_phone
             type: varchar(12)
         - column:
             constraints:
@@ -1417,72 +1318,36 @@ databaseChangeLog:
             name: zipcode
             type: varchar(10)
         - column:
-            name: email
+            name: user_provided_email
             type: varchar(50)
         - column:
-            name: referredby
+            name: referred_by
             type: int
         - column:
-            name: referredbyOther
+            name: referred_by_other
             type: varchar(50)
         - column:
-            name: blogparticipate
-            type: bit
-        - column:
             name: notes
-            type: varchar(4000)
-        - column:
-            constraints:
-              nullable: false
-            name: datecreated
-            type: datetime
-        - column:
-            constraints:
-              nullable: false
-            name: dateupdated
-            type: datetime
-        - column:
-            name: Createdby
-            type: varchar(30)
-        - column:
-            name: Updatedby
-            type: varchar(30)
-        - column:
-            constraints:
-              nullable: false
-            defaultValueComputed: '''0'''
-            defaultValueConstraintName: DF__Employers__onlin__03F0984C
-            name: onlineSource
-            type: bit
-        - column:
-            constraints:
-              nullable: false
-            defaultValueComputed: '''0'''
-            defaultValueConstraintName: DF__Employers__retur__04E4BC85
-            name: returnCustomer
-            type: bit
-        - column:
-            constraints:
-              nullable: false
-            defaultValueComputed: '''0'''
-            defaultValueConstraintName: DF__Employers__recei__05D8E0BE
-            name: receiveUpdates
-            type: bit
-        - column:
-            name: businessname
             type: varchar
         - column:
-            name: licenseplate
-            type: varchar(10)
+            constraints:
+              nullable: false
+            name: date_created
+            type: datetime
         - column:
-            name: driverslicense
+            constraints:
+              nullable: false
+            name: date_updated
+            type: datetime
+        - column:
+            name: created_by
             type: varchar(30)
         - column:
-            name: onlineSigninID
-            type: varchar(128)
+            name: updated_by
+            type: varchar(30)
         - column:
-            name: isOnlineProfileComplete
-            type: bit
+            name: online_signin_identity
+            type: varchar(128)
         - column:
             name: fax
             type: varchar(12)
@@ -1494,13 +1359,11 @@ databaseChangeLog:
     - createTable:
         columns:
         - column:
-            autoIncrement: true
             constraints:
               nullable: false
               primaryKey: true
-              primaryKeyName: PK__Images__3214EC27C636928E
-            name: ID
-            type: int
+            name: id
+            type: uuid
         - column:
             name: ImageData
             type: varbinary(MAX)
@@ -1525,18 +1388,18 @@ databaseChangeLog:
         - column:
             constraints:
               nullable: false
-            name: datecreated
+            name: date_created
             type: datetime
         - column:
             constraints:
               nullable: false
-            name: dateupdated
+            name: date_updated
             type: datetime
         - column:
-            name: Createdby
+            name: created_by
             type: varchar(30)
         - column:
-            name: Updatedby
+            name: updated_by
             type: varchar(30)
         tableName: Images
 - changeSet:
@@ -1549,9 +1412,8 @@ databaseChangeLog:
             constraints:
               nullable: false
               primaryKey: true
-              primaryKeyName: PK__Workers__3214EC27DEE4CDDD
-            name: ID
-            type: int
+            name: id
+            type: uuid
         - column:
             constraints:
               nullable: false
@@ -1569,7 +1431,7 @@ databaseChangeLog:
             constraints:
               nullable: false
             name: memberStatus
-            type: int
+            type: varchar(10)
         - column:
             name: memberReactivateDate
             type: datetime
@@ -1577,10 +1439,10 @@ databaseChangeLog:
             name: active
             type: bit
         - column:
-            name: RaceID
+            name: raceID
             type: int
         - column:
-            name: raceother
+            name: raceOther
             type: varchar(20)
         - column:
             name: height
@@ -1591,31 +1453,31 @@ databaseChangeLog:
         - column:
             constraints:
               nullable: false
-            name: englishlevelID
+            name: englishLevelID
             type: int
         - column:
-            name: recentarrival
+            name: recentArrival
             type: bit
         - column:
-            name: dateinUSA
+            name: dateInUSA
             type: datetime
         - column:
-            name: dateinseattle
+            name: dateInSeattle
             type: datetime
         - column:
             name: disabled
             type: bit
         - column:
-            name: disabilitydesc
+            name: disabilityDesc
             type: varchar(50)
         - column:
-            name: maritalstatus
+            name: maritalStatus
             type: int
         - column:
-            name: livewithchildren
+            name: liveWithChildren
             type: bit
         - column:
-            name: numofchildren
+            name: numOfhildren
             type: int
         - column:
             name: incomeID
@@ -1635,7 +1497,7 @@ databaseChangeLog:
         - column:
             constraints:
               nullable: false
-            name: dwccardnum
+            name: membership_number
             type: int
         - column:
             name: neighborhoodID
@@ -1674,7 +1536,7 @@ databaseChangeLog:
             type: datetime
         - column:
             name: ImageID
-            type: int
+            type: uuid
         - column:
             name: skill1
             type: int
@@ -1687,18 +1549,18 @@ databaseChangeLog:
         - column:
             constraints:
               nullable: false
-            name: datecreated
+            name: date_created
             type: datetime
         - column:
             constraints:
               nullable: false
-            name: dateupdated
+            name: date_updated
             type: datetime
         - column:
-            name: Createdby
+            name: created_by
             type: varchar(30)
         - column:
-            name: Updatedby
+            name: updated_by
             type: varchar(30)
         - column:
             name: homeless
@@ -1767,12 +1629,6 @@ databaseChangeLog:
             name: typeOfWork
             type: varchar
         - column:
-            name: memberStatusEN
-            type: varchar(50)
-        - column:
-            name: memberStatusES
-            type: varchar(50)
-        - column:
             name: fullNameAndID
             type: varchar(100)
         - column:
@@ -1780,47 +1636,15 @@ databaseChangeLog:
             type: varchar
         tableName: Workers
 - changeSet:
-    id: 1590217406948-31
-    author: jcii (generated)
-    changes:
-    - createTable:
-        columns:
-        - column:
-            constraints:
-              nullable: false
-              primaryKey: true
-              primaryKeyName: PK__DrivingD__92BED8411077B92E
-            name: distancesID
-            type: int
-        - column:
-            constraints:
-              nullable: false
-            name: workOrderId
-            type: int
-        - column:
-            name: drivingDistanceInMiles
-            type: float(53)
-        tableName: DrivingDistances
-- changeSet:
-    id: 1590217406948-32
-    author: jcii (generated)
-    changes:
-    - createIndex:
-        columns:
-        - column:
-            name: transportProviderID
-        indexName: IX_transportProviderID
-        tableName: TransportProviderAvailabilities
-- changeSet:
     id: 1590217406948-35
     author: jcii (generated)
     changes:
     - createIndex:
         columns:
         - column:
-            name: ActivityID
-        indexName: IX_activityID
-        tableName: ActivitySignins
+            name: activity_id
+        indexName: IX_activity_id
+        tableName: activity_signins
 - changeSet:
     id: 1590217406948-36
     author: jcii (generated)
@@ -1830,7 +1654,7 @@ databaseChangeLog:
         - column:
             name: personID
         indexName: IX_personID
-        tableName: ActivitySignins
+        tableName: activity_signins
 - changeSet:
     id: 1590217406948-37
     author: jcii (generated)
@@ -1848,7 +1672,7 @@ databaseChangeLog:
     - createIndex:
         columns:
         - column:
-            name: dwccardnum
+            name: membership_number
         indexName: nci_wi_WorkerSignins_920345646A83399347A7
         tableName: WorkerSignins
 - changeSet:
@@ -1863,7 +1687,7 @@ databaseChangeLog:
         initiallyDeferred: false
         onDelete: CASCADE
         onUpdate: NO ACTION
-        referencedColumnNames: ID
+        referencedColumnNames: id
         referencedTableName: Persons
         validate: true
 - changeSet:
@@ -1900,8 +1724,8 @@ databaseChangeLog:
     - createIndex:
         columns:
         - column:
-            name: dateTimeofWork
-        indexName: dateTimeofWork
+            name: date_time_of_work
+        indexName: IX_date_time_of_work
         tableName: WorkOrders
 - changeSet:
     id: 1590217406948-48
@@ -1910,8 +1734,8 @@ databaseChangeLog:
     - createIndex:
         columns:
         - column:
-            name: EmployerID
-        indexName: nci_wi_WorkOrders_60EE0838F1E27A388627
+            name: employer_id
+        indexName: IX_employer_id
         tableName: WorkOrders
 - changeSet:
     id: 1590217406948-51
@@ -2008,37 +1832,13 @@ databaseChangeLog:
         referencedTableName: Persons
         validate: true
 - changeSet:
-    id: 1590217406948-70
-    author: jcii (generated)
-    changes:
-    - addUniqueConstraint:
-        columnNames: workOrderId
-        constraintName: UniqueWoID
-        tableName: DrivingDistances
-
-- changeSet:
-    id: 1590217406948-72
-    author: jcii (generated)
-    changes:
-    - addForeignKeyConstraint:
-        baseColumnNames: transportProviderID
-        baseTableName: TransportProviderAvailabilities
-        constraintName: FK_dbo.TransportProviderAvailabilities_dbo.TransportProviders_transportProviderID
-        deferrable: false
-        initiallyDeferred: false
-        onDelete: CASCADE
-        onUpdate: NO ACTION
-        referencedColumnNames: ID
-        referencedTableName: TransportProviders
-        validate: true
-- changeSet:
     id: 1590217406948-73
     author: jcii (generated)
     changes:
     - addForeignKeyConstraint:
-        baseColumnNames: ActivityID
-        baseTableName: ActivitySignins
-        constraintName: FK_ActivitySignins_Activities_activityID
+        baseColumnNames: activity_id
+        baseTableName: activity_signins
+        constraintName: FK_ActivitySignins_Activities_activity_id
         deferrable: false
         initiallyDeferred: false
         onDelete: CASCADE
@@ -2052,7 +1852,7 @@ databaseChangeLog:
     changes:
     - addForeignKeyConstraint:
         baseColumnNames: personID
-        baseTableName: ActivitySignins
+        baseTableName: activity_signins
         constraintName: FK_ActivitySignins_Persons_personID
         deferrable: false
         initiallyDeferred: false
@@ -2156,7 +1956,7 @@ databaseChangeLog:
     author: jcii (generated)
     changes:
     - addForeignKeyConstraint:
-        baseColumnNames: EmployerID
+        baseColumnNames: employer_id
         baseTableName: WorkOrders
         constraintName: Employer_WorkOrders
         deferrable: false

@@ -93,7 +93,7 @@ As with all the modules the db example is wired up in the `initialize` function 
 
 * To configure the DB
 
-		java -jar target/machete-1.0.0-SNAPSHOT.jar db migrate machete.yml --migrations src/main/resources/migrations.yml 
+		java -jar target/machete-1.0.0-SNAPSHOT.jar db migrate machete.yml --migrations ./machete_db.yaml
 
 * To run the server run.
 

@@ -209,7 +209,22 @@
             <version>${pac4j.version}</version>
             <scope>test</scope>
           </dependency>
-        
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq</artifactId>
+            <version>3.14.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.xml.bind</groupId>
+                    <artifactId>jaxb-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq-meta-extensions-liquibase</artifactId>
+            <version>3.14.1</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -437,6 +452,57 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.jooq</groupId>
+                <artifactId>jooq-codegen-maven</artifactId>
+                <version>3.14.1</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <generator>
+                        <database>
+                          <name>org.jooq.meta.extensions.liquibase.LiquibaseDatabase</name>
+                          <properties>
+                                
+                            <!-- Specify the location of your XML script. -->
+                            <property>
+                              <key>scripts</key>
+                              <value>machete_db.yaml</value>
+                            </property>
+                            
+                            <!-- Whether you want to include liquibase tables in generated output
+                            
+                                 - false (default)
+                                 - true: includes DATABASECHANGELOG and DATABASECHANGELOGLOCK tables -->
+                            <property>
+                              <key>includeLiquibaseTables</key>
+                              <value>false</value>
+                            </property>
+                            
+                            <!-- Properties prefixed "database." will be passed on to the liquibase.database.Database class 
+                                 if a matching setter is found -->
+                            <property>
+                              <key>database.liquibaseSchemaName</key>
+                              <value>public</value>
+                            </property>
+                            
+                            <!-- The property "changeLogParameters.contexts" will be passed on to the 
+                                 liquibase.database.Database.update() call (jOOQ 3.13.2+).
+                                 See https://www.liquibase.org/documentation/contexts.html -->
+                            <property>
+                              <key>changeLogParameters.contexts</key>
+                              <value>!test</value>
+                            </property>
+                          </properties>
+                        </database>
+                      </generator>
+                </configuration>
             </plugin>
         </plugins>
     </build>

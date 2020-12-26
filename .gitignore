@@ -45,3 +45,7 @@ buildNumber.properties
 \.classpath
 
 dropwizard-example\.iml
+
+.gradle/
+
+src/generated-sources/
