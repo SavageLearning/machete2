@@ -90,7 +90,7 @@ databaseChangeLog:
             name: updated_by
             type: varchar(30)
         - column:
-            name: personID
+            name: person_id
             type: uuid
         tableName: activity_signins
 - changeSet:
@@ -157,17 +157,17 @@ databaseChangeLog:
         - column:
             constraints:
               nullable: false
-            name: transportRuleID
+            name: transport_rules_id
             type: uuid
         - column:
             constraints:
               nullable: false
-            name: minWorker
+            name: minimum_seats
             type: int
         - column:
             constraints:
               nullable: false
-            name: maxWorker
+            name: maximum_seats
             type: int
         - column:
             constraints:
@@ -209,15 +209,15 @@ databaseChangeLog:
             name: membership_number
             type: int
         - column:
-            name: WorkerID
+            name: worker_id
             type: uuid
         - column:
-            name: WorkAssignmentID
-            type: int
+            name: work_assignment_id
+            type: uuid
         - column:
             constraints:
               nullable: false
-            name: dateforsignin
+            name: date_for_signin
             type: datetime
         - column:
             name: lottery_timestamp
@@ -239,8 +239,8 @@ databaseChangeLog:
             name: updated_by
             type: varchar(30)
         - column:
-            name: memberStatus
-            type: int
+            name: member_status
+            type: varchar(10)
         - column:
             name: lottery_sequence
             type: int
@@ -267,12 +267,12 @@ databaseChangeLog:
         - column:
             constraints:
               nullable: false
-            name: WorkOrderID
+            name: work_order_id
             type: uuid
         - column:
             constraints:
               nullable: false
-            name: WorkerID
+            name: worker_id
             type: uuid
         - column:
             constraints:
@@ -311,24 +311,24 @@ databaseChangeLog:
         - column:
             constraints:
               nullable: false
-            name: firstname1
+            name: first_given_name
             type: varchar(50)
         - column:
-            name: firstname2
+            name: second_given_name
             type: varchar(50)
         - column:
             constraints:
               nullable: false
-            name: lastname1
+            name: first_family_name
             type: varchar(50)
         - column:
-            name: lastname2
+            name: second_family_name
             type: varchar(50)
         - column:
-            name: address1
+            name: address_1
             type: varchar(50)
         - column:
-            name: address2
+            name: address_2
             type: varchar(50)
         - column:
             name: city
@@ -340,16 +340,13 @@ databaseChangeLog:
             name: zipcode
             type: varchar(10)
         - column:
-            name: phone
+            name: primary_phone
             type: varchar(12)
         - column:
             constraints:
               nullable: false
             name: gender
-            type: int
-        - column:
-            name: genderother
-            type: varchar(20)
+            type: varchar(10)
         - column:
             constraints:
               nullable: false
@@ -370,7 +367,7 @@ databaseChangeLog:
             name: nickname
             type: varchar(50)
         - column:
-            name: cellphone
+            name: secondary_phone
             type: varchar(12)
         - column:
             name: email
@@ -378,9 +375,6 @@ databaseChangeLog:
         - column:
             name: facebook
             type: varchar(50)
-        - column:
-            name: fullName
-            type: varchar
         tableName: Persons
 - changeSet:
     id: 1590217406948-10
@@ -397,20 +391,20 @@ databaseChangeLog:
         - column:
             constraints:
               nullable: false
-            name: PersonID
+            name: person_id
             type: uuid
         - column:
             constraints:
               nullable: false
-            name: eventType
-            type: int
+            name: event_type_id
+            type: uuid
         - column:
             constraints:
               nullable: false
-            name: dateFrom
+            name: date_from
             type: datetime
         - column:
-            name: dateTo
+            name: date_to
             type: datetime
         - column:
             name: notes
@@ -431,9 +425,6 @@ databaseChangeLog:
         - column:
             name: updated_by
             type: varchar(30)
-        - column:
-            name: eventTypeEN
-            type: varchar(50)
         tableName: Events
 - changeSet:
     id: 1590217406948-11
@@ -451,7 +442,7 @@ databaseChangeLog:
             name: name
             type: varchar
         - column:
-            name: commonName
+            name: common_name
             type: varchar
         - column:
             name: title
@@ -460,7 +451,7 @@ databaseChangeLog:
             name: description
             type: varchar
         - column:
-            name: sqlquery
+            name: sql_query
             type: varchar
         - column:
             name: category
@@ -469,10 +460,10 @@ databaseChangeLog:
             name: subcategory
             type: varchar
         - column:
-            name: inputsJson
+            name: inputs_json
             type: varchar
         - column:
-            name: columnsJson
+            name: columns_json
             type: varchar
         - column:
             constraints:
@@ -504,15 +495,15 @@ databaseChangeLog:
             name: id
             type: uuid
         - column:
-            name: workerAssignedID
+            name: worker_assigned_id
             type: uuid
         - column:
             constraints:
               nullable: false
-            name: workOrderID
+            name: work_order_id
             type: uuid
         - column:
-            name: workerSigninID
+            name: worker_signin_id
             type: uuid
         - column:
             constraints:
@@ -520,7 +511,7 @@ databaseChangeLog:
             name: active
             type: bit
         - column:
-            name: pseudoID
+            name: pseudo_id
             type: int
         - column:
             name: description
@@ -533,12 +524,12 @@ databaseChangeLog:
         - column:
             constraints:
               nullable: false
-            name: skillID
-            type: int
+            name: skill_id
+            type: uuid
         - column:
             constraints:
               nullable: false
-            name: hourlyWage
+            name: hourly_wage
             type: float(53)
         - column:
             constraints:
@@ -546,37 +537,12 @@ databaseChangeLog:
             name: hours
             type: float(53)
         - column:
-            name: hourRange
+            name: hour_range
             type: int
         - column:
             constraints:
               nullable: false
             name: days
-            type: int
-        - column:
-            constraints:
-              nullable: false
-            name: qualityOfWork
-            type: int
-        - column:
-            constraints:
-              nullable: false
-            name: followDirections
-            type: int
-        - column:
-            constraints:
-              nullable: false
-            name: attitude
-            type: int
-        - column:
-            constraints:
-              nullable: false
-            name: reliability
-            type: int
-        - column:
-            constraints:
-              nullable: false
-            name: transportProgram
             type: int
         - column:
             name: comments
@@ -605,17 +571,14 @@ databaseChangeLog:
             name: surcharge
             type: float(53)
         - column:
-            name: workerRating
+            name: worker_rating
             type: int
         - column:
-            name: workerRatingComments
+            name: worker_rating_comments
             type: varchar(500)
         - column:
             name: weightLifted
             type: bit
-        - column:
-            name: skillEN
-            type: varchar
         - column:
             name: fullWAID
             type: varchar
@@ -1168,12 +1131,12 @@ databaseChangeLog:
         - column:
             constraints:
               nullable: false
-            name: EventID
+            name: event_id
             type: uuid
         - column:
             constraints:
               nullable: false
-            name: ImageID
+            name: image_id
             type: uuid
         tableName: JoinEventImage
 - changeSet:
@@ -1430,7 +1393,7 @@ databaseChangeLog:
         - column:
             constraints:
               nullable: false
-            name: memberStatus
+            name: member_status
             type: varchar(10)
         - column:
             name: memberReactivateDate
@@ -1535,7 +1498,7 @@ databaseChangeLog:
             name: insuranceexpiration
             type: datetime
         - column:
-            name: ImageID
+            name: image_id
             type: uuid
         - column:
             name: skill1
@@ -1652,8 +1615,8 @@ databaseChangeLog:
     - createIndex:
         columns:
         - column:
-            name: personID
-        indexName: IX_personID
+            name: person_id
+        indexName: IX_person_id
         tableName: activity_signins
 - changeSet:
     id: 1590217406948-37
@@ -1662,8 +1625,8 @@ databaseChangeLog:
     - createIndex:
         columns:
         - column:
-            name: transportRuleID
-        indexName: IX_transportRuleID
+            name: transport_rules_id
+        indexName: IX_transport_rules_id
         tableName: TransportCostRules
 - changeSet:
     id: 1590217406948-38
@@ -1680,7 +1643,7 @@ databaseChangeLog:
     author: jcii (generated)
     changes:
     - addForeignKeyConstraint:
-        baseColumnNames: PersonID
+        baseColumnNames: person_id
         baseTableName: Events
         constraintName: Event_Person
         deferrable: false
@@ -1697,9 +1660,9 @@ databaseChangeLog:
     - createIndex:
         columns:
         - column:
-            name: workOrderID
+            name: work_order_id
         - column:
-            name: workerAssignedID
+            name: worker_assigned_id
         indexName: nci_wi_WorkAssignments_5B642451-D8CD-4C46-AECF-E3EF196FD1B1
         tableName: WorkAssignments
 - changeSet:
@@ -1707,7 +1670,7 @@ databaseChangeLog:
     author: jcii (generated)
     changes:
     - addForeignKeyConstraint:
-        baseColumnNames: workerSigninID
+        baseColumnNames: worker_signin_id
         baseTableName: WorkAssignments
         constraintName: WorkAssignment_workerSiginin
         deferrable: false
@@ -1785,9 +1748,9 @@ databaseChangeLog:
     author: jcii (generated)
     changes:
     - addForeignKeyConstraint:
-        baseColumnNames: EventID
+        baseColumnNames: event_id
         baseTableName: JoinEventImage
-        constraintName: FK_dbo.JoinEventImages_dbo.Events_EventID
+        constraintName: FK_dbo.JoinEventImages_dbo.Events_event_id
         deferrable: false
         initiallyDeferred: false
         onDelete: CASCADE
@@ -1802,8 +1765,8 @@ databaseChangeLog:
     - createIndex:
         columns:
         - column:
-            name: EventID
-        indexName: IX_EventID
+            name: event_id
+        indexName: IX_event_id
         tableName: JoinEventImage
 - changeSet:
     id: 1590217406948-57
@@ -1812,8 +1775,8 @@ databaseChangeLog:
     - createIndex:
         columns:
         - column:
-            name: ImageID
-        indexName: IX_ImageID
+            name: image_id
+        indexName: IX_image_id
         tableName: JoinEventImage
 
 - changeSet:
@@ -1851,9 +1814,9 @@ databaseChangeLog:
     author: jcii (generated)
     changes:
     - addForeignKeyConstraint:
-        baseColumnNames: personID
+        baseColumnNames: person_id
         baseTableName: activity_signins
-        constraintName: FK_ActivitySignins_Persons_personID
+        constraintName: FK_ActivitySignins_Persons_person_id
         deferrable: false
         initiallyDeferred: false
         onDelete: NO ACTION
@@ -1866,9 +1829,9 @@ databaseChangeLog:
     author: jcii (generated)
     changes:
     - addForeignKeyConstraint:
-        baseColumnNames: transportRuleID
+        baseColumnNames: transport_rules_id
         baseTableName: TransportCostRules
-        constraintName: FK_dbo.TransportCostRules_dbo.TransportRules_transportRuleID
+        constraintName: FK_dbo.TransportCostRules_dbo.TransportRules_transport_rules_id
         deferrable: false
         initiallyDeferred: false
         onDelete: CASCADE
@@ -1881,7 +1844,7 @@ databaseChangeLog:
     author: jcii (generated)
     changes:
     - addForeignKeyConstraint:
-        baseColumnNames: WorkerID
+        baseColumnNames: worker_id
         baseTableName: WorkerSignins
         constraintName: Worker_workersignins
         deferrable: false
@@ -1896,7 +1859,7 @@ databaseChangeLog:
     author: jcii (generated)
     changes:
     - addForeignKeyConstraint:
-        baseColumnNames: WorkerID
+        baseColumnNames: worker_id
         baseTableName: WorkerRequests
         constraintName: WorkerRequest_workerRequested
         deferrable: false
@@ -1911,7 +1874,7 @@ databaseChangeLog:
     author: jcii (generated)
     changes:
     - addForeignKeyConstraint:
-        baseColumnNames: WorkOrderID
+        baseColumnNames: work_order_id
         baseTableName: WorkerRequests
         constraintName: WorkerRequest_workOrder
         deferrable: false
@@ -1926,7 +1889,7 @@ databaseChangeLog:
     author: jcii (generated)
     changes:
     - addForeignKeyConstraint:
-        baseColumnNames: workerAssignedID
+        baseColumnNames: worker_assigned_id
         baseTableName: WorkAssignments
         constraintName: Worker_workAssignments
         deferrable: false
@@ -1941,7 +1904,7 @@ databaseChangeLog:
     author: jcii (generated)
     changes:
     - addForeignKeyConstraint:
-        baseColumnNames: workOrderID
+        baseColumnNames: work_order_id
         baseTableName: WorkAssignments
         constraintName: WorkOrder_workAssignments
         deferrable: false
@@ -1986,9 +1949,9 @@ databaseChangeLog:
     author: jcii (generated)
     changes:
     - addForeignKeyConstraint:
-        baseColumnNames: ImageID
+        baseColumnNames: image_id
         baseTableName: JoinEventImage
-        constraintName: FK_dbo.JoinEventImages_dbo.Images_ImageID
+        constraintName: FK_dbo.JoinEventImages_dbo.Images_image_id
         deferrable: false
         initiallyDeferred: false
         onDelete: CASCADE

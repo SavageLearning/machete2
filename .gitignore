@@ -48,4 +48,4 @@ dropwizard-example\.iml
 
 .gradle/
 
-src/generated-sources/
+# src/generated-sources/
