@@ -97,7 +97,7 @@ As with all the modules the db example is wired up in the `initialize` function 
 
 * To run the server run.
 
-        java -jar target/machete-1.0.0-SNAPSHOT server example.yml
+        java -jar target/machete-1.0.0-SNAPSHOT.jar server machete.yml
 
 * To hit the Hello World example (hit refresh a few times).
 

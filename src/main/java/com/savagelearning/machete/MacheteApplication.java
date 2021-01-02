@@ -9,6 +9,7 @@ import com.savagelearning.machete.core.User;
 import com.savagelearning.machete.db.PersonDAO;
 import com.savagelearning.machete.filter.DateRequiredFeature;
 import com.savagelearning.machete.health.TemplateHealthCheck;
+// import com.savagelearning.machete.resources.EmployersResource;
 import com.savagelearning.machete.resources.FilteredResource;
 import com.savagelearning.machete.resources.MacheteResource;
 import com.savagelearning.machete.resources.PeopleResource;
@@ -16,6 +17,9 @@ import com.savagelearning.machete.resources.PersonResource;
 import com.savagelearning.machete.resources.ProtectedResource;
 import com.savagelearning.machete.resources.ViewResource;
 import com.savagelearning.machete.tasks.EchoTask;
+import com.bendb.dropwizard.jooq.JooqBundle;
+import com.bendb.dropwizard.jooq.JooqFactory;
+import com.savagelearning.jooq.tables.daos.EmployersDao;
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.auth.AuthDynamicFeature;
@@ -79,6 +83,19 @@ public class MacheteApplication extends Application<MacheteConfiguration> {
                 return configuration.getDataSourceFactory();
             }
         });
+
+        bootstrap.addBundle(new JooqBundle<MacheteConfiguration>() {
+            @Override
+            public DataSourceFactory getDataSourceFactory(MacheteConfiguration configuration) {
+                return configuration.getDataSourceFactory();
+            }
+    
+            @Override
+            public JooqFactory getJooqFactory(MacheteConfiguration configuration) {
+                return configuration.getJooqFactory();
+            }
+        });
+        
         bootstrap.addBundle(hibernateBundle);
         bootstrap.addBundle(new ViewBundle<MacheteConfiguration>() {
             @Override
@@ -92,7 +109,9 @@ public class MacheteApplication extends Application<MacheteConfiguration> {
 
     @Override
     public void run(MacheteConfiguration configuration, Environment environment) {
+        // TODO Dependency Injection should handle object creation 
         final PersonDAO dao = new PersonDAO(hibernateBundle.getSessionFactory());
+        // final EmployersDao employersDao = new EmployersDao();
         final Template template = configuration.buildTemplate();
 
         environment.healthChecks().register("template", new TemplateHealthCheck(template));
@@ -111,6 +130,7 @@ public class MacheteApplication extends Application<MacheteConfiguration> {
         environment.jersey().register(new PeopleResource(dao));
         environment.jersey().register(new PersonResource(dao));
         environment.jersey().register(new FilteredResource());
+        // environment.jersey().register(new EmployersResource(employersDao));
         OpenAPI oas = new OpenAPI();
         Info info = new Info()
                 .title("Machete API")
