@@ -91,7 +91,7 @@ jooq:
   # Whether to include schema names in generated SQL.  (default: yes)
   renderSchema: yes
   # How names should be rendered in generated SQL.  One of QUOTED, AS_IS, LOWER, or UPPER.  (default: QUOTED)
-  renderNameStyle: AS_IS
+  renderNameStyle: UPPER
   # How keywords should be rendered in generated SQL.  One of LOWER, UPPER.  (default: UPPER)
   renderKeywordStyle: lower
   # Whether generated SQL should be pretty-printed.  (default: no)

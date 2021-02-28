@@ -12,7 +12,7 @@ databaseChangeLog:
             name: name
             type: varchar(100)
 
-        tableName: tenants
+        tableName: TENANTS
     - createTable:
         columns:
         - column:
@@ -104,7 +104,7 @@ databaseChangeLog:
         - column:
             name: fax
             type: varchar(12)
-        tableName: employers
+        tableName: EMPLOYERS
     - createTable:
         columns:
         - column:
@@ -185,5 +185,5 @@ databaseChangeLog:
         - column:
             name: facebook
             type: varchar(50)
-        tableName: person
+        tableName: PERSON
 

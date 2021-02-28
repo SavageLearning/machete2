@@ -1,40 +1,40 @@
-// package com.savagelearning.machete.resources;
+package com.savagelearning.machete.resources;
+import com.savagelearning.jooq.tables.Employers;
+import com.savagelearning.jooq.tables.daos.EmployersDao;
+import com.savagelearning.jooq.tables.records.EmployersRecord;
 
-// import io.dropwizard.hibernate.UnitOfWork;
-// import com.savagelearning.jooq.Tables;
-// import com.savagelearning.jooq.tables.daos.EmployersDao;
-// import com.savagelearning.jooq.tables.pojos.Employers;
-// import com.savagelearning.jooq.tables.records.EmployersRecord;
+import org.jooq.DSLContext;
 
-// import org.jooq.DSLContext;
+import java.util.List;
 
-// import javax.validation.Valid;
-// import javax.ws.rs.GET;
-// import javax.ws.rs.POST;
-// import javax.ws.rs.Path;
-// import javax.ws.rs.Produces;
-// import javax.ws.rs.core.Context;
-// import javax.ws.rs.core.MediaType;
+import javax.validation.Valid;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
 
-// @Path("/employers")
-// @Produces(MediaType.APPLICATION_JSON)
-// public class EmployersResource {
+import static com.savagelearning.jooq.Tables.EMPLOYERS;
 
-//     private final EmployersDao employersDAO;
+@Path("/employers")
+@Produces(MediaType.APPLICATION_JSON)
+public class EmployersResource {
 
-//     public EmployersResource(EmployersDao employersDAO) {
-//         this.employersDAO = employersDAO;
-//     }
+    public final EmployersDao employersDAO;
 
-//     @POST
-//     @UnitOfWork
-//     public void createPerson(@Valid Employers employer) {
-//         employersDAO.insert(employer);
-//     }
+    public EmployersResource(EmployersDao employersDAO) {
+        this.employersDAO = employersDAO;
+    }
 
-//     @GET
-//     @UnitOfWork
-//     public EmployersRecord listPeople(@Context DSLContext database) {
-//         return database.selectFrom(Tables.EMPLOYERS).fetchOne();
-//     }
-// }
+    // @POST
+    // public void createPerson(@Valid Employers employer) {
+    //     employersDAO.insert(employer);
+    // }
+
+    @GET
+    public long listEmployers() {
+        return employersDAO.count();
+
+    }
+}

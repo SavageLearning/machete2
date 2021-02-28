@@ -58,15 +58,15 @@ public class IntegrationTest {
         assertThat(saying.getContent()).isEqualTo(RULE.getConfiguration().buildTemplate().render(name));
     }
 
-    // @Test
-    // public void testSwagger() throws Exception {
-    //     final Optional<String> name = Optional.of("Dr. IntegrationTest");
-    //     final Saying result = RULE.client().target("http://localhost:" + RULE.getLocalPort() + "/openapi.json")
-    //             .request()
-    //             .get()
-    //             .readEntity(String.class);
-    //     assertThat(result).contains("Hello World API");
-    // }
+    @Test
+    public void testSwagger() throws Exception {
+        final Optional<String> name = Optional.of("Dr. IntegrationTest");
+        final String result = RULE.client().target("http://localhost:" + RULE.getLocalPort() + "/openapi.json")
+                .request()
+                .get()
+                .readEntity(String.class);
+        assertThat(result).contains("Machete API");
+    }
 
     @Test
     public void testPostPerson() throws Exception {

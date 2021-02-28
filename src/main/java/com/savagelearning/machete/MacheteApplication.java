@@ -9,7 +9,7 @@ import com.savagelearning.machete.core.User;
 import com.savagelearning.machete.db.PersonDAO;
 import com.savagelearning.machete.filter.DateRequiredFeature;
 import com.savagelearning.machete.health.TemplateHealthCheck;
-// import com.savagelearning.machete.resources.EmployersResource;
+import com.savagelearning.machete.resources.EmployersResource;
 import com.savagelearning.machete.resources.FilteredResource;
 import com.savagelearning.machete.resources.MacheteResource;
 import com.savagelearning.machete.resources.PeopleResource;
@@ -92,7 +92,7 @@ public class MacheteApplication extends Application<MacheteConfiguration> {
     
             @Override
             public JooqFactory getJooqFactory(MacheteConfiguration configuration) {
-                return configuration.getJooqFactory();
+                return configuration.jooq();
             }
         });
         
@@ -111,7 +111,7 @@ public class MacheteApplication extends Application<MacheteConfiguration> {
     public void run(MacheteConfiguration configuration, Environment environment) {
         // TODO Dependency Injection should handle object creation 
         final PersonDAO dao = new PersonDAO(hibernateBundle.getSessionFactory());
-        // final EmployersDao employersDao = new EmployersDao();
+        final EmployersDao employersDao = new EmployersDao();
         final Template template = configuration.buildTemplate();
 
         environment.healthChecks().register("template", new TemplateHealthCheck(template));
@@ -130,7 +130,7 @@ public class MacheteApplication extends Application<MacheteConfiguration> {
         environment.jersey().register(new PeopleResource(dao));
         environment.jersey().register(new PersonResource(dao));
         environment.jersey().register(new FilteredResource());
-        // environment.jersey().register(new EmployersResource(employersDao));
+        environment.jersey().register(new EmployersResource(employersDao));
         OpenAPI oas = new OpenAPI();
         Info info = new Info()
                 .title("Machete API")

@@ -60,17 +60,17 @@ public class MacheteConfiguration extends Configuration {
         this.database = dataSourceFactory;
     }
 
-    @Valid
-    @JsonProperty("jooq")
-    public JooqFactory jooqFactory = new JooqFactory();
+    @JsonProperty
+    @NotNull
+    public JooqFactory jooq = new JooqFactory();
+
+    public JooqFactory jooq() {
+        return jooq;
+    }
 
     @JsonProperty("viewRendererConfiguration")
     public Map<String, Map<String, String>> getViewRendererConfiguration() {
         return viewRendererConfiguration;
-    }
-
-    public JooqFactory getJooqFactory() {
-        return jooqFactory;
     }
 
     @JsonProperty("viewRendererConfiguration")
