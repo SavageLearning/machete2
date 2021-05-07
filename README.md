@@ -88,6 +88,10 @@ As with all the modules the db example is wired up in the `initialize` function 
 
 		mvn test
 
+* Build with verbose build error output
+		
+		mvn clean install -X -e
+
 
 ## Run the app!
 
