@@ -28,12 +28,12 @@ databaseChangeLog:
             constraints:
               nullable: false
             name: active
-            type: bit
+            type: boolean
         - column:
             constraints:
               nullable: false
             name: business
-            type: bit
+            type: boolean
         - column:
             constraints:
               nullable: false
@@ -117,7 +117,7 @@ databaseChangeLog:
             constraints:
               nullable: false
             name: active
-            type: bit
+            type: boolean
         - column:
             constraints:
               nullable: false
