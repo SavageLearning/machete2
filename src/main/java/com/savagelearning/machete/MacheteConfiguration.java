@@ -1,6 +1,7 @@
 package com.savagelearning.machete;
 
 import com.savagelearning.machete.core.Template;
+import com.smoketurner.dropwizard.graphql.GraphQLFactory;
 import com.bendb.dropwizard.jooq.JooqFactory;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.dropwizard.Configuration;
@@ -25,6 +26,9 @@ public class MacheteConfiguration extends Configuration {
 
     @NotNull
     private Map<String, Map<String, String>> viewRendererConfiguration = Collections.emptyMap();
+
+    @NotNull @Valid public final GraphQLFactory graphql = new GraphQLFactory();
+    
 
     @JsonProperty
     public String getTemplate() {
@@ -76,5 +80,10 @@ public class MacheteConfiguration extends Configuration {
     @JsonProperty("viewRendererConfiguration")
     public void setViewRendererConfiguration(Map<String, Map<String, String>> viewRendererConfiguration) {
         this.viewRendererConfiguration = viewRendererConfiguration;
+    }
+
+    @JsonProperty
+    public GraphQLFactory getGraphQLFactory() {
+      return graphql;
     }
 }

@@ -1,5 +1,6 @@
 package com.savagelearning.machete;
 
+import com.savagelearning.machete.api.EmployersDataFetcher;
 import com.savagelearning.machete.auth.MacheteAuthenticator;
 import com.savagelearning.machete.auth.MacheteAuthorizer;
 import com.savagelearning.machete.cli.RenderCommand;
@@ -17,9 +18,18 @@ import com.savagelearning.machete.resources.PersonResource;
 import com.savagelearning.machete.resources.ProtectedResource;
 import com.savagelearning.machete.resources.ViewResource;
 import com.savagelearning.machete.tasks.EchoTask;
+import com.smoketurner.dropwizard.graphql.CachingPreparsedDocumentProvider;
+import com.smoketurner.dropwizard.graphql.GraphQLBundle;
+import com.smoketurner.dropwizard.graphql.GraphQLFactory;
 import com.bendb.dropwizard.jooq.JooqBundle;
 import com.bendb.dropwizard.jooq.JooqFactory;
 import com.savagelearning.jooq.tables.daos.EmployersDao;
+
+import graphql.execution.preparsed.PreparsedDocumentProvider;
+import graphql.kickstart.execution.GraphQLQueryInvoker;
+import graphql.kickstart.servlet.GraphQLHttpServlet;
+import graphql.schema.GraphQLSchema;
+import graphql.schema.idl.RuntimeWiring;
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.auth.AuthDynamicFeature;
@@ -40,6 +50,7 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 
+import org.eclipse.jetty.servlets.CrossOriginFilter;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
@@ -52,10 +63,14 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import javax.servlet.DispatcherType;
+import javax.servlet.FilterRegistration;
 
 public class MacheteApplication extends Application<MacheteConfiguration> {
     public static void main(String[] args) throws Exception {
@@ -77,6 +92,25 @@ public class MacheteApplication extends Application<MacheteConfiguration> {
 
     @Override
     public void initialize(Bootstrap<MacheteConfiguration> bootstrap) {
+        // https://github.com/smoketurner/dropwizard-graphql
+        final GraphQLBundle<MacheteConfiguration> bundle = new GraphQLBundle<MacheteConfiguration>() {
+            @Override
+            public GraphQLFactory getGraphQLFactory(MacheteConfiguration configuration) {
+    
+                final GraphQLFactory factory = configuration.getGraphQLFactory();
+                // the RuntimeWiring must be configured prior to the run()
+                // methods being called so the schema is connected properly.
+                factory.setRuntimeWiring(buildWiring(configuration));
+                return factory;
+            }
+            @Override
+            public void initialize(Bootstrap<?> bootstrap) {
+                bootstrap.addBundle(new AssetsBundle("/assets", "/woo", "index.htm", "graphql-playground"));
+            }
+
+
+        };
+        bootstrap.addBundle(bundle);
         // Enable variable substitution with environment variables
         bootstrap.setConfigurationSourceProvider(
                 new SubstitutingSourceProvider(
@@ -117,11 +151,30 @@ public class MacheteApplication extends Application<MacheteConfiguration> {
 
     }
 
+
+    private static RuntimeWiring buildWiring(MacheteConfiguration configuration) {
+
+        final EmployersDataFetcher fetcher =
+            new EmployersDataFetcher(configuration.getTemplate(), configuration.getDefaultName());
+    
+        final RuntimeWiring wiring =
+            RuntimeWiring.newRuntimeWiring()
+                .type("Query", typeWiring -> typeWiring.dataFetcher("saying", fetcher))
+                .build();
+    
+        return wiring;
+      }
+
     @Override
     public void run(MacheteConfiguration configuration, Environment environment) throws SQLException {
         // TODO Dependency Injection should handle object creation 
         final PersonDAO dao = new PersonDAO(hibernateBundle.getSessionFactory());
         final Template template = configuration.buildTemplate();
+
+        final FilterRegistration.Dynamic cors =  environment.servlets().addFilter("cors", CrossOriginFilter.class);
+        cors.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
+
+
 
         environment.healthChecks().register("template", new TemplateHealthCheck(template));
         environment.admin().addTask(new EchoTask());
