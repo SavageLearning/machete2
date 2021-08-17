@@ -1,6 +1,7 @@
 package com.savagelearning.machete;
 
 import com.savagelearning.machete.core.Template;
+import com.bendb.dropwizard.jooq.JooqFactory;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.dropwizard.Configuration;
 import io.dropwizard.db.DataSourceFactory;
@@ -57,6 +58,14 @@ public class MacheteConfiguration extends Configuration {
     @JsonProperty("database")
     public void setDataSourceFactory(DataSourceFactory dataSourceFactory) {
         this.database = dataSourceFactory;
+    }
+
+    @JsonProperty
+    @NotNull
+    public JooqFactory jooq = new JooqFactory();
+
+    public JooqFactory jooq() {
+        return jooq;
     }
 
     @JsonProperty("viewRendererConfiguration")

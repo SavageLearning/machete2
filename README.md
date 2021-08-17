@@ -88,16 +88,20 @@ As with all the modules the db example is wired up in the `initialize` function 
 
 		mvn test
 
+* Build with verbose build error output
+		
+		mvn clean install -X -e
+
 
 ## Run the app!
 
 * To configure the DB
 
-		java -jar target/machete-1.0.0-SNAPSHOT.jar db migrate machete.yml --migrations src/main/resources/migrations.yml 
+		java -jar target/machete-1.0.0-SNAPSHOT.jar db migrate machete.yml --migrations ./machete_db.yaml
 
 * To run the server run.
 
-        java -jar target/machete-1.0.0-SNAPSHOT server example.yml
+        java -jar target/machete-1.0.0-SNAPSHOT.jar server machete.yml
 
 * To hit the Hello World example (hit refresh a few times).
 
