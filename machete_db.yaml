@@ -3,17 +3,17 @@ databaseChangeLog:
     id: 1590217406948-26
     author: jcii (generated)
     changes:
-    - createTable:
+    - createTable: # TENANTS
         columns:
         - column:
             name: id
             type: uuid
-        - column: 
+        - column:
             name: name
             type: varchar(100)
 
         tableName: TENANTS
-    - createTable:
+    - createTable: # EMPLOYERS
         columns:
         - column:
             constraints:
@@ -105,7 +105,7 @@ databaseChangeLog:
             name: fax
             type: varchar(12)
         tableName: EMPLOYERS
-    - createTable:
+    - createTable: # PERSONS
         columns:
         - column:
             constraints:
