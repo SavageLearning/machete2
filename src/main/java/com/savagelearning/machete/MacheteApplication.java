@@ -47,6 +47,12 @@ import org.jooq.conf.ParseNameCase;
 import org.jooq.conf.RenderQuotedNames;
 import org.jooq.conf.Settings;
 import org.jooq.impl.DSL;
+import org.keycloak.adapters.KeycloakDeployment;
+import org.keycloak.adapters.KeycloakDeploymentBuilder;
+import org.keycloak.jaxrs.JaxrsBearerTokenFilterImpl;
+
+import de.ahus1.keycloak.dropwizard.KeycloakBundle;
+import de.ahus1.keycloak.dropwizard.KeycloakConfiguration;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -62,13 +68,13 @@ public class MacheteApplication extends Application<MacheteConfiguration> {
         new MacheteApplication().run(args);
     }
 
-    private final HibernateBundle<MacheteConfiguration> hibernateBundle =
-        new HibernateBundle<MacheteConfiguration>(Person.class) {
-            @Override
-            public DataSourceFactory getDataSourceFactory(MacheteConfiguration configuration) {
-                return configuration.getDataSourceFactory();
-            }
-        };
+    private final HibernateBundle<MacheteConfiguration> hibernateBundle = new HibernateBundle<MacheteConfiguration>(
+            Person.class) {
+        @Override
+        public DataSourceFactory getDataSourceFactory(MacheteConfiguration configuration) {
+            return configuration.getDataSourceFactory();
+        }
+    };
 
     @Override
     public String getName() {
@@ -81,9 +87,7 @@ public class MacheteApplication extends Application<MacheteConfiguration> {
         bootstrap.setConfigurationSourceProvider(
                 new SubstitutingSourceProvider(
                         bootstrap.getConfigurationSourceProvider(),
-                        new EnvironmentVariableSubstitutor(false)
-                )
-        );
+                        new EnvironmentVariableSubstitutor(false)));
 
         bootstrap.addCommand(new RenderCommand());
         bootstrap.addBundle(new MigrationsBundle<MacheteConfiguration>() {
@@ -99,13 +103,13 @@ public class MacheteApplication extends Application<MacheteConfiguration> {
             public DataSourceFactory getDataSourceFactory(MacheteConfiguration configuration) {
                 return configuration.getDataSourceFactory();
             }
-    
+
             @Override
             public JooqFactory getJooqFactory(MacheteConfiguration configuration) {
                 return configuration.jooq();
             }
         });
-        
+
         bootstrap.addBundle(hibernateBundle);
         bootstrap.addBundle(new ViewBundle<MacheteConfiguration>() {
             @Override
@@ -114,15 +118,17 @@ public class MacheteApplication extends Application<MacheteConfiguration> {
             }
         });
         bootstrap.addBundle(new AssetsBundle("/swagger-ui", "/swagger", "index.html", "swagger"));
-
     }
 
     @Override
     public void run(MacheteConfiguration configuration, Environment environment) throws SQLException {
-        // TODO Dependency Injection should handle object creation 
+        // TODO Dependency Injection should handle object creation
         final PersonDAO dao = new PersonDAO(hibernateBundle.getSessionFactory());
         final Template template = configuration.buildTemplate();
-
+        KeycloakDeployment keycloakDeployment = KeycloakDeploymentBuilder
+                .build(configuration.getKeycloakConfiguration());
+        JaxrsBearerTokenFilterImpl filter = new DropwizardBearerTokenFilterImpl(keycloakDeployment);
+        environment.jersey().register(filter);
         environment.healthChecks().register("template", new TemplateHealthCheck(template));
         environment.admin().addTask(new EchoTask());
         environment.jersey().register(DateRequiredFeature.class);
@@ -146,7 +152,7 @@ public class MacheteApplication extends Application<MacheteConfiguration> {
                 .description("RESTful greetings for you.")
                 .termsOfService("http://example.com/terms")
                 .contact(new Contact().email("john@example.com"));
-     
+
         oas.info(info);
 
         List<Server> servers = new ArrayList<>();
@@ -156,7 +162,7 @@ public class MacheteApplication extends Application<MacheteConfiguration> {
                 .openAPI(oas)
                 .prettyPrint(true)
                 .resourcePackages(Stream.of("com.savagelearning.machete")
-                                  .collect(Collectors.toSet()));
+                        .collect(Collectors.toSet()));
         environment.jersey().register(new OpenApiResource()
                 .openApiConfiguration(oasConfig));
     }

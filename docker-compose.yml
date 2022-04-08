@@ -24,7 +24,7 @@ services:
       machete:
         aliases:
           - "graphite"
-    # Uncomment for persistenting data          
+    # Uncomment for persistenting data
     volumes:
       # Persistence for metrics data (Whisper database files):
       - './.graphite-storage:/opt/graphite/storage/whisper'
@@ -47,7 +47,7 @@ services:
         aliases:
           - "grafana"
     depends_on:
-      - graphite      
+      - graphite
     ports:
       - '127.0.0.1:3000:3000' # Grafana web interface (local only to prevent eavesdropping)
     volumes:
@@ -56,3 +56,10 @@ services:
     # Uncomment for persistenting data
     #  - './.grafana-storage/data:/var/lib/grafana'
     #  - './.grafana-storage/etc/grafana.ini:/etc/grafana/grafana.ini'
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    ports:
+      - 127.0.0.1:8100:8100
+      - 127.0.0.1:8101:8101
+    env_file: "./env_variables.conf"
+    command: ["start-dev --http-port=8100 --https-port=8101"]
