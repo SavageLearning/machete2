@@ -4,17 +4,9 @@ defaultName: ${DW_DEFAULT_NAME:-Stranger}
 
 # Database settings.
 database:
-
-  # the name of your JDBC driver
   driverClass: org.postgresql.Driver
-
-  # the username
   user: postgres
-
-  # the password
   password: postgres
-
-  # the JDBC URL
   url: jdbc:postgresql://localhost:5432/machete
 
 server:
@@ -56,6 +48,9 @@ logging:
     org.hibernate.SQL:
       level: DEBUG
 
+    org.keycloak.adapters:
+      level: TRACE
+
 # Logback's Time Based Rolling Policy - archivedLogFilenamePattern: /tmp/application-%d{yyyy-MM-dd}.log.gz
 # Logback's Size and Time Based Rolling Policy -  archivedLogFilenamePattern: /tmp/application-%d{yyyy-MM-dd}-%i.log.gz
 # Logback's Fixed Window Rolling Policy -  archivedLogFilenamePattern: /tmp/application-%i.log.gz
@@ -87,14 +82,15 @@ metrics:
 
 # https://ahus1.github.io/keycloak-dropwizard-integration/tutorial.html
 keycloakConfiguration:
+  #bearer-only: true
   realm: test
-  auth-server-url: http://localhost:8100/auth
+  auth-server-url: http://localhost:8100
   ssl-required: none
   register-node-at-startup: true
   register-node-period: 600
-  resource: test
+  resource: machete2-client
   credentials:
-    secret: 7abd7d08-b10f-4513-bbba-aebebddabb45
+    secret: ada8494a-95a2-4ff4-b9a9-d6b912b0f365
 
 jooq:
   # The flavor of SQL to generate. If not specified, it will be inferred from the JDBC connection URL.  (default: null)

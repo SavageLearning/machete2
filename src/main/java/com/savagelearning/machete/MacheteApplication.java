@@ -49,6 +49,7 @@ import org.jooq.conf.Settings;
 import org.jooq.impl.DSL;
 import org.keycloak.adapters.KeycloakDeployment;
 import org.keycloak.adapters.KeycloakDeploymentBuilder;
+import org.keycloak.adapters.NodesRegistrationManagement;
 import org.keycloak.jaxrs.JaxrsBearerTokenFilterImpl;
 
 import de.ahus1.keycloak.dropwizard.KeycloakBundle;
@@ -135,7 +136,7 @@ public class MacheteApplication extends Application<MacheteConfiguration> {
         environment.jersey().register(new AuthDynamicFeature(new BasicCredentialAuthFilter.Builder<User>()
                 .setAuthenticator(new MacheteAuthenticator())
                 .setAuthorizer(new MacheteAuthorizer())
-                .setRealm("SUPER SECRET STUFF")
+                .setRealm("test")
                 .buildAuthFilter()));
         environment.jersey().register(new AuthValueFactoryProvider.Binder<>(User.class));
         environment.jersey().register(RolesAllowedDynamicFeature.class);
