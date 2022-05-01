@@ -48,7 +48,7 @@ logging:
     org.hibernate.SQL:
       level: DEBUG
 
-    org.keycloak.adapters:
+    org.keycloak:
       level: TRACE
 
 # Logback's Time Based Rolling Policy - archivedLogFilenamePattern: /tmp/application-%d{yyyy-MM-dd}.log.gz
@@ -90,7 +90,8 @@ keycloakConfiguration:
   register-node-period: 600
   resource: machete2-client
   credentials:
-    secret: ada8494a-95a2-4ff4-b9a9-d6b912b0f365
+    secret: omOAJikJz0RpvPzyFrL5q4gWSilM8TvM
+
 
 jooq:
   # The flavor of SQL to generate. If not specified, it will be inferred from the JDBC connection URL.  (default: null)
