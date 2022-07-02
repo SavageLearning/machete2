@@ -1,6 +1,12 @@
 package com.savagelearning.machete;
 
 import com.savagelearning.machete.core.Template;
+
+import org.keycloak.representations.adapters.config.AdapterConfig;
+
+import de.ahus1.keycloak.dropwizard.KeycloakConfiguration;
+
+import com.bendb.dropwizard.jooq.JooqFactory;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.dropwizard.Configuration;
 import io.dropwizard.db.DataSourceFactory;
@@ -12,6 +18,18 @@ import java.util.Collections;
 import java.util.Map;
 
 public class MacheteConfiguration extends Configuration {
+
+    @JsonProperty
+    private AdapterConfig keycloakConfiguration = new AdapterConfig();
+
+    public AdapterConfig getKeycloakConfiguration() {
+        return keycloakConfiguration;
+    }
+
+    public void setKeycloakConfiguration(AdapterConfig keycloakConfiguration) {
+        this.keycloakConfiguration = keycloakConfiguration;
+    }
+
     @NotEmpty
     private String template;
 
@@ -57,6 +75,14 @@ public class MacheteConfiguration extends Configuration {
     @JsonProperty("database")
     public void setDataSourceFactory(DataSourceFactory dataSourceFactory) {
         this.database = dataSourceFactory;
+    }
+
+    @JsonProperty
+    @NotNull
+    public JooqFactory jooq = new JooqFactory();
+
+    public JooqFactory jooq() {
+        return jooq;
     }
 
     @JsonProperty("viewRendererConfiguration")

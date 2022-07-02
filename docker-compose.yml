@@ -24,7 +24,7 @@ services:
       machete:
         aliases:
           - "graphite"
-    # Uncomment for persistenting data          
+    # Uncomment for persistenting data
     volumes:
       # Persistence for metrics data (Whisper database files):
       - './.graphite-storage:/opt/graphite/storage/whisper'
@@ -46,8 +46,9 @@ services:
       machete:
         aliases:
           - "grafana"
+    env_file: "./env_variables.conf"
     depends_on:
-      - graphite      
+      - graphite
     ports:
       - '127.0.0.1:3000:3000' # Grafana web interface (local only to prevent eavesdropping)
     volumes:
@@ -56,3 +57,18 @@ services:
     # Uncomment for persistenting data
     #  - './.grafana-storage/data:/var/lib/grafana'
     #  - './.grafana-storage/etc/grafana.ini:/etc/grafana/grafana.ini'
+  keycloak:
+    image: quay.io/keycloak/keycloak:nightly
+    ports:
+      - 0.0.0.0:8100:8100
+      - 0.0.0.0:8101:8101
+    env_file: "./env_variables.conf"
+    command: ["start-dev --auto-build --http-port=8100 --https-port=8101 --log-level=DEBUG --db=postgres --features=token-exchange --db-url=jdbc:postgresql://db:5432/keycloak --db-username=postgres --db-password=postgres --import-realm"]
+    volumes:
+      - './keycloak-test-realm.json:/opt/keycloak/data/import/keycloak-test-realm.json'
+    networks:
+      machete:
+        aliases:
+          - "keycloak"
+    depends_on:
+      - db

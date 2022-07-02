@@ -16,7 +16,7 @@
         <pac4j.version>3.0.0</pac4j.version>
         <jax-rs-pac4j.version>3.0.0</jax-rs-pac4j.version>
         <j2e-pac4j.version>4.0.0</j2e-pac4j.version>
-        <swagger-ui.version>3.26.0</swagger-ui.version>
+        <swagger-ui.version>4.6.2</swagger-ui.version>
         <junit5.version>5.6.2</junit5.version>
     </properties>
 
@@ -25,7 +25,7 @@
             <dependency>
                 <groupId>io.dropwizard</groupId>
                 <artifactId>dropwizard-dependencies</artifactId>
-                <version>2.0.9</version>
+                <version>2.0.29</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -81,20 +81,35 @@
             <artifactId>dropwizard-metrics-graphite</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.bendb.dropwizard</groupId>
+            <artifactId>dropwizard-jooq</artifactId>
+            <version>2.0.2-0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.xml.bind</groupId>
+                    <artifactId>jaxb-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.jooq</groupId>
+                    <artifactId>jooq</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
             <groupId>io.swagger.core.v3</groupId>
             <artifactId>swagger-core</artifactId>
             <version>2.1.1</version>
-         </dependency>
-         <dependency>
+        </dependency>
+        <dependency>
             <groupId>io.swagger.core.v3</groupId>
             <artifactId>swagger-jaxrs2</artifactId>
             <version>2.1.1</version>
-         </dependency>
-         <dependency>
+        </dependency>
+        <dependency>
             <groupId>io.swagger.core.v3</groupId>
             <artifactId>swagger-integration</artifactId>
             <version>2.1.1</version>
-         </dependency>
+        </dependency>
         <dependency>
             <groupId>io.swagger.core.v3</groupId>
             <artifactId>swagger-jaxrs2-servlet-initializer</artifactId>
@@ -107,8 +122,8 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.2.14</version>
-        </dependency>        
+            <version>42.3.3</version>
+        </dependency>
         <dependency>
             <groupId>io.dropwizard</groupId>
             <artifactId>dropwizard-testing</artifactId>
@@ -181,35 +196,61 @@
             <groupId>org.pac4j</groupId>
             <artifactId>pac4j-core</artifactId>
             <version>${pac4j.version}</version>
-          </dependency>
-          <dependency>
+        </dependency>
+        <dependency>
             <groupId>org.pac4j</groupId>
             <artifactId>pac4j-config</artifactId>
             <version>${pac4j.version}</version>
-          </dependency>
-          <dependency>
+        </dependency>
+        <dependency>
             <groupId>org.pac4j</groupId>
             <artifactId>jersey225-pac4j</artifactId>
             <version>${jax-rs-pac4j.version}</version>
-          </dependency>
-          <dependency>
+        </dependency>
+        <dependency>
             <groupId>org.pac4j</groupId>
             <artifactId>j2e-pac4j</artifactId>
             <version>${j2e-pac4j.version}</version>
-          </dependency>
-          <dependency>
+        </dependency>
+        <dependency>
             <groupId>org.pac4j</groupId>
             <artifactId>pac4j-http</artifactId>
             <version>${pac4j.version}</version>
             <scope>test</scope>
-          </dependency>
-          <dependency>
+        </dependency>
+        <dependency>
             <groupId>org.pac4j</groupId>
             <artifactId>pac4j-oauth</artifactId>
             <version>${pac4j.version}</version>
             <scope>test</scope>
-          </dependency>
-        
+        </dependency>
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq</artifactId>
+            <version>3.14.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.xml.bind</groupId>
+                    <artifactId>jaxb-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq-meta-extensions-liquibase</artifactId>
+            <version>3.14.1</version>
+        </dependency>
+        <dependency>
+            <groupId>de.ahus1.keycloak.dropwizard</groupId>
+            <artifactId>keycloak-dropwizard</artifactId>
+            <version>1.2.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.jboss.logging</groupId>
+                    <artifactId>jboss-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
     </dependencies>
 
     <build>
@@ -297,7 +338,7 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>            
+            </plugin>
             <plugin>
                 <groupId>com.google.code.maven-replacer-plugin</groupId>
                 <artifactId>replacer</artifactId>
@@ -313,7 +354,7 @@
                 <configuration>
                     <file>
                         ${project.build.directory}/swagger-dist/META-INF/resources/webjars/swagger-ui-dist/${swagger-ui.version}/index.html
-                    </file>
+</file>
                     <replacements>
                         <replacement>
                             <token>https://petstore.swagger.io/v2/swagger.json</token>
@@ -322,9 +363,9 @@
                         <replacement>
                             <token>&lt;head&gt;</token>
                             <value>&lt;head&gt;&lt;base href="http://localhost:8088/swagger/" /&gt;</value>
-                        </replacement>                        
+                        </replacement>
                     </replacements>
-                </configuration>                
+                </configuration>
             </plugin>
             <!-- Copy artifacts -->
             <plugin>
@@ -346,14 +387,14 @@
                                 <resource>
                                     <directory>
                                         ${project.build.directory}/swagger-dist/META-INF/resources/webjars/swagger-ui-dist/${swagger-ui.version}/
-                                    </directory>
+</directory>
                                     <filtering>false</filtering>
                                 </resource>
                             </resources>
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>            
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
@@ -438,6 +479,65 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.jooq</groupId>
+                <artifactId>jooq-codegen-maven</artifactId>
+                <version>3.14.1</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <generator>
+                        <generate>
+                            <pojos>true</pojos>
+                            <daos>true</daos>
+                        </generate>
+                        <database>
+                            <name>org.jooq.meta.extensions.liquibase.LiquibaseDatabase</name>
+                            <properties>
+
+                                <!-- Specify the location of your XML script. -->
+                                <property>
+                                    <key>scripts</key>
+                                    <value>machete_db.yaml</value>
+                                </property>
+
+                                <!-- Whether you want to include liquibase tables in generated output
+
+                                 - false (default)
+                                 - true: includes DATABASECHANGELOG and DATABASECHANGELOGLOCK tables -->
+                                <property>
+                                    <key>includeLiquibaseTables</key>
+                                    <value>false</value>
+                                </property>
+
+                                <!-- Properties prefixed "database." will be passed on to the liquibase.database.Database class
+                                 if a matching setter is found -->
+                                <property>
+                                    <key>database.liquibaseSchemaName</key>
+                                    <value>public</value>
+                                </property>
+
+                                <!-- The property "changeLogParameters.contexts" will be passed on to the
+                                 liquibase.database.Database.update() call (jOOQ 3.13.2+).
+                                 See https://www.liquibase.org/documentation/contexts.html -->
+                                <property>
+                                    <key>changeLogParameters.contexts</key>
+                                    <value>!test</value>
+                                </property>
+                            </properties>
+                        </database>
+                        <target>
+                            <packageName>com.savagelearning.jooq</packageName>
+                            <directory>target/generated-sources/jooq</directory>
+                        </target>
+                    </generator>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
@@ -458,7 +558,7 @@
                 </plugins>
             </build>
         </profile>
-         <profile>
+        <profile>
             <id>jdk11</id>
             <activation>
                 <jdk>11</jdk>

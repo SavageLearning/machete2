@@ -1,1 +1,2 @@
 CREATE DATABASE machete;
+CREATE DATABASE keycloak;

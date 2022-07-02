@@ -22,13 +22,12 @@ import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
 
 @ExtendWith(DropwizardExtensionsSupport.class)
 public class ProtectedResourceTest {
-    private static final BasicCredentialAuthFilter<User> BASIC_AUTH_HANDLER =
-            new BasicCredentialAuthFilter.Builder<User>()
-                    .setAuthenticator(new MacheteAuthenticator())
-                    .setAuthorizer(new MacheteAuthorizer())
-                    .setPrefix("Basic")
-                    .setRealm("SUPER SECRET STUFF")
-                    .buildAuthFilter();
+    private static final BasicCredentialAuthFilter<User> BASIC_AUTH_HANDLER = new BasicCredentialAuthFilter.Builder<User>()
+            .setAuthenticator(new MacheteAuthenticator())
+            .setAuthorizer(new MacheteAuthorizer())
+            .setPrefix("Basic")
+            .setRealm("test")
+            .buildAuthFilter();
 
     public static final ResourceExtension RULE = ResourceExtension.builder()
             .addProvider(RolesAllowedDynamicFeature.class)
@@ -50,12 +49,12 @@ public class ProtectedResourceTest {
     public void testProtectedEndpointNoCredentials401() {
         try {
             RULE.target("/protected").request()
-                .get(String.class);
+                    .get(String.class);
             failBecauseExceptionWasNotThrown(NotAuthorizedException.class);
         } catch (NotAuthorizedException e) {
             assertThat(e.getResponse().getStatus()).isEqualTo(401);
             assertThat(e.getResponse().getHeaders().get(HttpHeaders.WWW_AUTHENTICATE))
-                    .containsOnly("Basic realm=\"SUPER SECRET STUFF\"");
+                    .containsOnly("Basic realm=\"test\"");
         }
 
     }
@@ -64,13 +63,13 @@ public class ProtectedResourceTest {
     public void testProtectedEndpointBadCredentials401() {
         try {
             RULE.target("/protected").request()
-                .header(HttpHeaders.AUTHORIZATION, "Basic c25lYWt5LWJhc3RhcmQ6YXNkZg==")
-                .get(String.class);
+                    .header(HttpHeaders.AUTHORIZATION, "Basic c25lYWt5LWJhc3RhcmQ6YXNkZg==")
+                    .get(String.class);
             failBecauseExceptionWasNotThrown(NotAuthorizedException.class);
         } catch (NotAuthorizedException e) {
             assertThat(e.getResponse().getStatus()).isEqualTo(401);
             assertThat(e.getResponse().getHeaders().get(HttpHeaders.WWW_AUTHENTICATE))
-                .containsOnly("Basic realm=\"SUPER SECRET STUFF\"");
+                    .containsOnly("Basic realm=\"test\"");
         }
 
     }
