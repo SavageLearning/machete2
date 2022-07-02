@@ -46,6 +46,7 @@ services:
       machete:
         aliases:
           - "grafana"
+    env_file: "./env_variables.conf"
     depends_on:
       - graphite
     ports:

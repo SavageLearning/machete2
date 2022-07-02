@@ -143,4 +143,10 @@ As with all the modules the db example is wired up in the `initialize` function 
 
 # References
 
+## Dropwizard
+
 https://ahus1.github.io/keycloak-dropwizard-integration/tutorial.html
+
+## Grafana auth
+
+https://janikvonrotz.ch/2020/08/27/grafana-oauth-with-keycloak-and-how-to-validate-a-jwt-token/
